@@ -5,8 +5,9 @@ import java.util.Arrays;
 public class M1A1 {
 
     public static void main(String[] args) {
-        int[] arr = {4,3,2,1,0};
-        System.out.println(maxChunksToSorted(arr));
+        int[] arr = {1,2,3,4};
+        rotate(arr,3);
+
 
     }
 
@@ -156,6 +157,21 @@ public class M1A1 {
         return false;
     }
 
+
+    /**
+     * https://leetcode.com/problems/rotate-array/
+     * Input: nums = [1,2,3,4,5,6,7], k = 3
+     * Output: [5,6,7,1,2,3,4]
+     * */
+    public static void rotate(int[] nums, int k) {
+        int[] rot = new int[nums.length];
+        for(int i=0;i< nums.length;i++){
+            rot[((i+k)% nums.length)] = nums[i];
+        }
+
+
+
+    }
 
 
 
