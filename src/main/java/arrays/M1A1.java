@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class M1A1 {
 
     public static void main(String[] args) {
-        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        System.out.println(trap(height));
+        int[] arr = {4,3,2,1,0};
+        System.out.println(maxChunksToSorted(arr));
 
     }
 
@@ -123,4 +123,40 @@ public class M1A1 {
 
 
     }
+
+
+    /**
+     * https://leetcode.com/problems/max-chunks-to-make-sorted/
+     * Input: arr = [1,0,2,3,4]
+     * Output: 4
+     * */
+    public static int maxChunksToSorted(int[] arr) {
+        int chunk = 0;
+        for(int i =0; i < arr.length;){
+            for(int j =i;j<arr.length;j++){
+               if(isChunkConatinsAllReqDigits(arr,i,j)){
+                   chunk++;
+                   i=j+1;
+               }
+            }
+        }
+        return chunk;
+    }
+
+    private static  boolean isChunkConatinsAllReqDigits(int[] arr, int i, int j) {
+        int count=0;
+        for(int a=i;a<=j;a++){
+            if(arr[a] >= i && arr[a]<=j){
+                count++;
+            }
+        }
+        if(count == (j-i+1)){
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 }
