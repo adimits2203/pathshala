@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class M1A1 {
 
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4};
-        rotate(arr,3);
+        int[] arr = {1,2};
+        rotateNoExtraSpace(arr,3);
 
 
     }
@@ -173,6 +173,63 @@ public class M1A1 {
 
     }
 
+    /**
+     * https://leetcode.com/problems/rotate-array/
+     * Input: nums = [1,2,3,4,5,6,7], k = 3
+     * Output: [5,6,7,1,2,3,4]
+     * */
+    public static void rotateNoExtraSpace(int[] nums, int k) {
+        int n = nums.length;
+        k = k%n;
+        reverseArray(nums,0,n-k-1);
+        reverseArray(nums,n-k,n-1);
+        reverseArray(nums,0,n-1);
+        for (int a: nums
+             ) {
+            System.out.print(a + " ");
+        }
+
+    }
 
 
+    /**
+     * [1,2,3]
+     * s=1
+     * e=2
+     *
+     * */
+    private static void reverseArray(int[] arr, int s, int e){
+        for(int i=0;i< (e-s+1)/2;i++){
+          int t = arr[e-i];
+          arr[e-i] = arr[s+i];
+          arr[s+i] = t;
+        }
+    }
+
+    /**
+     *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+     * Input: prices = [7,1,5,3,6,4]
+     * Output: 5
+     * */
+    public static int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[] smax = new int[n];
+        smax[n-1] = prices[n-1];
+        for(int i =n-2;i>=0;i--){
+            if(prices[i] > smax[i+1]){
+                smax[i] = prices[i];
+            }
+            else{
+                smax[i] = smax[i+1];
+            }
+        }
+
+        int maxProfit = 0;
+        for(int i=0;i<n-1;i++){
+            if(smax[i+1] - prices[i]  > maxProfit){
+                maxProfit = smax[i+1] - prices[i];
+            }
+        }
+        return maxProfit;
+    }
 }
