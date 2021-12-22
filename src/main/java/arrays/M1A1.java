@@ -206,30 +206,5 @@ public class M1A1 {
         }
     }
 
-    /**
-     *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
-     * Input: prices = [7,1,5,3,6,4]
-     * Output: 5
-     * */
-    public static int maxProfit(int[] prices) {
-        int n = prices.length;
-        int[] smax = new int[n];
-        smax[n-1] = prices[n-1];
-        for(int i =n-2;i>=0;i--){
-            if(prices[i] > smax[i+1]){
-                smax[i] = prices[i];
-            }
-            else{
-                smax[i] = smax[i+1];
-            }
-        }
 
-        int maxProfit = 0;
-        for(int i=0;i<n-1;i++){
-            if(smax[i+1] - prices[i]  > maxProfit){
-                maxProfit = smax[i+1] - prices[i];
-            }
-        }
-        return maxProfit;
-    }
 }
