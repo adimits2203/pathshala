@@ -3,8 +3,24 @@ package arrays;
 public class M1A2 {
 
     public static void main(String[] args) {
-        int arr[ ] = {19 ,9};
-        System.out.println(minSwap(arr,2    ,18));
+        int arr[][] = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
+        System.out.println(subMatricesSum(arr,3,3));
+    }
+
+    /**
+     * https://www.geeksforgeeks.org/sum-of-all-submatrices-of-a-given-matrix/
+     * idea is to get the contribution of each element in all possible sub arrays
+     * */
+    public static long subMatricesSum( int arr[][], int row, int col) {
+        int sum = 0;
+        for(int i =0; i< row;i++){
+            for(int j=0;j<col;j++){
+                    sum+= arr[i][j] * ( (i+1) * (j+1) * (row-i)*(col-j));
+            }
+        }
+
+        return sum;
+
     }
 
     /**
@@ -58,4 +74,27 @@ public class M1A2 {
         return maxWindow < countOfLegalElements ? countOfLegalElements - maxWindow : 0;
 
     }
+
+    /**
+     * https://practice.geeksforgeeks.org/problems/sum-of-subarrays2229/1
+     * N = 3
+     * A[] = {1, 2, 3}
+     * Output: 20
+     *6, 5 ,11 ,4 ,9 ,11, 8 ,2 ,6, 4, 5
+     * idea is to calculate contribution of each element
+     * */
+    public static long subarraySum( long a[], long n) {
+
+        long sum=0;
+        for(int i =0;i<n;i++){
+            sum+= (((i+1)*(n-i) * a[i]) % (Double.doubleToLongBits (Math.pow(10,9) +7)));
+
+        }
+        return sum % Double.doubleToLongBits (Math.pow(10,9) +7);
+    }
+
+
+
+
+
 }
