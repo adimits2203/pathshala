@@ -3,9 +3,39 @@ package arrays;
 public class M1A2 {
 
     public static void main(String[] args) {
-        int arr[][] = {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
-        System.out.println(subMatricesSum(arr,3,3));
+        int arr[][] = {{3, 0, 1, 4, 2}, {5, 6, 3, 2, 1}, {1, 2, 0, 1, 5}, {4, 1, 0, 1, 7}, {1, 0, 3, 0, 5}};
+        System.out.println(sumRegion(arr,5,5,2,1,4,3));
     }
+
+    /**
+     * https://leetcode.com/problems/range-sum-query-2d-immutable/
+     * idea is to have prefix sum of all sub matrices
+     * */
+    public static  int sumRegion(int[][] arr,int row, int col,int row1, int col1, int row2, int col2) {
+        int[][] sumArr = new int[row][col];
+        for(int i=0;i<row;i++){
+            for( int j=0;j<col;j++){
+                if(j>0){
+                    sumArr[i][j] = sumArr[i][j-1] + arr[i][j];
+                }
+                else{
+                    sumArr[i][j] = arr[i][j];
+                }
+            }
+        }
+         for(int j=0;j<col;j++){
+            for(int i=0;i<row;i++){
+                if(i>0){
+                    sumArr[i][j] = sumArr[i-1][j] + sumArr[i][j];
+                }
+
+            }
+        }
+
+
+        return sumArr[row2][col2] - sumArr[row1-1][col2] - sumArr[row2][col1-1] +sumArr[row1-1][col1-1] ;
+    }
+
 
     /**
      * https://www.geeksforgeeks.org/sum-of-all-submatrices-of-a-given-matrix/
