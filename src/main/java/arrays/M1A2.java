@@ -1,15 +1,76 @@
 package arrays;
 
+import com.sun.media.sound.SF2InstrumentRegion;
+
 public class M1A2 {
 
     public static void main(String[] args) {
-        int arr[][] = {{3, 0, 1, 4, 2}, {5, 6, 3, 2, 1}, {1, 2, 0, 1, 5}, {4, 1, 0, 1, 7}, {1, 0, 3, 0, 5}};
-        System.out.println(sumRegion(arr,5,5,2,1,4,3));
+        int[] nums = {3,4,-1,1};
+
     }
+
+
+
+
+    /**
+     * https://leetcode.com/problems/search-a-2d-matrix-ii/
+     * idea is to remove either row or column in each pass
+     *
+     */
+    public static boolean searchMatrix(int[][] matrix,int row, int col, int target) {
+        int i = 0;
+        int j = col - 1;
+        while(i<row && j >=0){
+            if(matrix[i][j] == target){
+                return true;
+            }
+            else if(target < matrix[i][j]  || i == row -1){
+                if(j -1 >=0 )
+                    j--;
+            }
+            else if(target > matrix[i][j]  || j == 0){
+                if(i+1<row)
+                    i++;
+            }
+            if(row-i==0 && j==0){
+                if(matrix[i][j]==target)
+                    return true;
+                else
+                    return false;
+            }
+
+
+        }
+
+
+
+       /*for(int j=col-1,i=0;j>=0 && i < row;) {
+
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] < target && i + 1 < row || j==0) {
+                i++;
+            } else if (j - 1 >= 0 || i==0) {
+                j--;
+            }
+           if ((i == row - 1 && j == 0) || (i == 0 &&  j == 0)) {
+               if (matrix[i][j] == target) {
+                   return true;
+               }
+               return false;
+           }
+
+        }*/
+        return false;
+    }
+
+
 
     /**
      * https://leetcode.com/problems/range-sum-query-2d-immutable/
      * idea is to have prefix sum of all sub matrices
+     * i/p: int arr[][] = {{3, 0, 1, 4, 2}, {5, 6, 3, 2, 1}, {1, 2, 0, 1, 5}, {4, 1, 0, 1, 7}, {1, 0, 3, 0, 5}};
+     *
      * */
     public static  int sumRegion(int[][] arr,int row, int col,int row1, int col1, int row2, int col2) {
         int[][] sumArr = new int[row][col];
