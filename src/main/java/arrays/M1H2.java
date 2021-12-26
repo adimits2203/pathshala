@@ -7,10 +7,32 @@ import java.util.Map;
 public class M1H2 {
 
     public static void main(String[] args) {
-        int[][] mat = {{1,2,3},{4,5,6},{7,8,9}};
-        System.out.println(matrixBlockSum(mat,1));
+        int arr[][] = {{0, 1, 1, 1},  {0, 0, 1, 1}, {1, 1, 1, 1}, {0, 0, 0, 0}};
+        System.out.println(rowWithMax1s(arr,4,4));
     }
 
+    /**
+     * https://practice.geeksforgeeks.org/problems/row-with-max-1s0023/1
+     *
+     * */
+    public  static int rowWithMax1s(int[][] arr, int n, int m) {
+        int maxOnes = Integer.MIN_VALUE;
+        int answer= Integer.MIN_VALUE;
+        for(int i=0; i< n;i++){
+            for(int j=0;j<m;j++){
+                if(arr[i][j]==1){
+                    if(m-j > maxOnes){
+                        maxOnes = m-j;
+                        answer = i;
+                        if(maxOnes==m){
+                            return answer;
+                        }
+                    }
+                }
+            }
+        }
+        return answer;
+    }
 
     /**
      * https://leetcode.com/problems/matrix-block-sum/
