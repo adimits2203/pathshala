@@ -7,9 +7,55 @@ import java.util.Map;
 public class M1H2 {
 
     public static void main(String[] args) {
-        String s1 = "ab", s2 = "eidbaooo";
-        System.out.println(checkInclusion(s1,s2));
+        int[][] mat = {{1,2,3},{4,5,6},{7,8,9}};
+        System.out.println(matrixBlockSum(mat,1));
     }
+
+
+    /**
+     * https://leetcode.com/problems/matrix-block-sum/
+     * Input: mat = [[1,2,3],[4,5,6],[7,8,9]], k = 1
+     * Output: [[12,21,16],[27,45,33],[24,39,28]]
+     **/
+    public static int[][] matrixBlockSum(int[][] mat, int k) {
+        for(int i=0;i<mat.length;i++){
+            for (int j = 0;j<mat[0].length;j++){
+                if(j !=0){
+                    mat[i][j] = mat[i][j-1] + mat[i][j];
+                }
+             }
+        }
+        for(int j=0;j<mat[0].length;j++) {
+            for (int i = 0; i < mat.length; i++) {
+                if(i != 0 ){
+                    mat[i][j] = mat[i-1][j] + mat[i][j];
+                }
+            }
+        }
+        int[][] answer = new int[mat.length][mat[0].length];
+        int val,rMin,rMax,cMin,cMax = 0;
+        for(int i=0;i< mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                rMin = i - k >0 ? i-k : 0;
+                rMax = i + k < mat.length? i+k : mat.length-1;
+                cMin = j - k >0 ? j-k: 0;
+                cMax = j + k < mat[0].length? j+k : mat[0].length-1;
+                val = mat[rMax][cMax];
+                if(cMin>0){
+                    val-= mat[rMax][cMin-1];
+                }
+                if(rMin>0){
+                    val-= mat[rMin-1][cMax];
+                }
+                if(rMin>0 && cMin>0){
+                    val+=mat[rMin-1][cMin-1];
+                }
+                answer[i][j] =val;
+            }
+        }
+        return answer;
+    }
+
 
     /**
      * https://leetcode.com/problems/permutation-in-string/
