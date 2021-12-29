@@ -1,12 +1,83 @@
 package arrays;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class M1H3 {
     public static void main(String[] args) {
-        System.out.println(generate(2));
+        int[] nums = {0,2,1};
+        System.out.println(arrayNesting(nums));
+    }
+
+    /**
+     * https://leetcode.com/problems/array-nesting/
+     * Input: nums = [5,4,0,3,1,6,2]
+     * Output: 4
+     *
+     * */
+    public static int arrayNesting(int[] nums) {
+        Set set = new HashSet();
+        int prev = nums[0];
+        int c=1;
+        set.add(prev);
+        for(int i=1;i< nums.length;i++){
+             if(!set.add(nums[prev])){
+                 break;
+            }
+             prev =nums[prev];
+             c++;
+        }
+        return c;
+    }
+
+    /**
+     * https://leetcode.com/problems/majority-element-ii/
+     * Input: nums = [3,2,3]
+     * Output: [3]
+     *
+     * idea -= using Moore algo
+     * */
+    public static List<Integer> majorityElement2(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        int votes1=0, votes2=0;
+        int candidate1=nums[0], candidate2=-1;
+        for (int a:nums
+             ) {
+            if(a==candidate1)
+                votes1++;
+            else if(a==candidate2)
+                votes2++;
+            else if(votes1==0){
+                candidate1=a;
+                votes1=1;
+            }
+            else if(votes2==0){
+                candidate2=a;
+                votes2=1;
+            }
+            else{
+                votes1--;
+                votes2--;
+            }
+        }
+        votes1=0;votes2=0;
+        for (int a :nums
+             ) {
+            if(a==candidate1)
+                votes1++;
+            else if(a==candidate2)
+                votes2++;
+
+
+        }
+        if(votes1> nums.length/3)
+            ans.add(candidate1);
+        if(votes2> nums.length/3)
+            ans.add(candidate2);
+
+
+
+
+        return ans;
     }
 
     /**
@@ -36,6 +107,10 @@ public class M1H3 {
 
     }
 
+
+    /**
+     * idea - Moore algo
+     * */
     public static int majorityElement(int[] nums) {
         int votes=0, candidate =-1;
         for(int i=0;i< nums.length;i++){
