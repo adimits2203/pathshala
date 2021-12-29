@@ -129,7 +129,7 @@ public class M1H2 {
         return flag;
     }
 
-    private static void printArr(int[] arr){
+    public static void printArr(int[] arr){
         for (int a:arr
              ) {
             System.out.println(a);
