@@ -4,10 +4,32 @@ import java.util.*;
 
 public class M1H3 {
     public static void main(String[] args) {
-        int[] nums = {0,2,1};
-        System.out.println(arrayNesting(nums));
+        int[] nums = {3,4,-1,1};
+        System.out.println(firstMissingPositive(nums));
     }
 
+    /**
+     * https://leetcode.com/problems/first-missing-positive/
+     * idea is to mark the existance in a bool array if and only if the element is less than size of array , because the least +ve integer can not be more than n+1
+     * */
+    public static int firstMissingPositive(int[] nums) {
+        boolean[] bool = new boolean[nums.length];
+        for(int i=0;i< nums.length;i++){
+            if(nums[i]<0) continue;;
+            if(nums[i] <= nums.length){
+                bool[nums[i]-1]=true;
+            }
+        }
+
+        for(int i=0;i< nums.length;i++){
+            if(bool[i]==false)
+            {
+                return i+1;
+            }
+
+        }
+        return -1;
+    }
     /**
      * https://leetcode.com/problems/array-nesting/
      * Input: nums = [5,4,0,3,1,6,2]
@@ -15,18 +37,20 @@ public class M1H3 {
      *
      * */
     public static int arrayNesting(int[] nums) {
-        Set set = new HashSet();
-        int prev = nums[0];
-        int c=1;
-        set.add(prev);
-        for(int i=1;i< nums.length;i++){
-             if(!set.add(nums[prev])){
-                 break;
+        int counter,index=0,value, max = Integer.MIN_VALUE;
+
+        for(int i=0;i< nums.length;i++){
+            index = i;
+            counter=0;
+            while(nums[index]>=0){
+                value = nums[index];
+                nums[index]= -(value+1);
+                index = value;
+                counter++;
             }
-             prev =nums[prev];
-             c++;
+            max= Math.max(max,counter);
         }
-        return c;
+        return max;
     }
 
     /**
