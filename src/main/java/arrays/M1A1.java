@@ -6,7 +6,7 @@ public class M1A1 {
 
     public static void main(String[] args) {
         int[] arr = {1,2};
-        rotateNoExtraSpace(arr,3);
+        rotateNoExtraSpace(arr,4);
 
 
     }
