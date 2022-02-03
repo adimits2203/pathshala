@@ -28,7 +28,9 @@ public class A6 {
     /**
      * get the mod
      * count the freq of each remainder
-     *
+     * handle zero
+     * handle rest of the array of remainders
+     * handle middle element if rest of the array count is odd
      * */
     private static void printDivisiblePairs(int[] arr, int divisor) {
         int[] remainderArr = new int[divisor];

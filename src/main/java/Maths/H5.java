@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 public class H5
 {
     public static void main(String[] args) {
-        almostPrime(10);
+        Scanner sc = new Scanner(System.in);
+        int inputCount = sc.nextInt();
+        int[] spf=getSmallestPrimeFactors();// pre processing
+        while(inputCount-- > 0){
+            almostPrime(sc.nextInt(),spf);
+        }
     }
 
 
@@ -44,34 +49,33 @@ public class H5
      *            else return count +1
      *
      * */
-    private static void almostPrime(int n){
-
-
+    private static void almostPrime(int n,int[] spf){
         int happyPrimeCount = 0;
+
+
         for (int i = 1; i <= n ; i++) {
-            if(isHappyPrime(i)){
+            if(isHappyPrime(i,spf)){
                 happyPrimeCount++;
             }
         }
+        System.out.println(happyPrimeCount);
     }
 
-    private static boolean isHappyPrime(int n){
-        // pre processing
-        int[] primes = getPrimes();
+    private static boolean isHappyPrime(int n,int[] spf){
         int t = n;
         int happyPrimeCount = 0;
-        for (int i=2;i*i<=t;i++)
-              {
-                  boolean flag = true;
+        for (int i=spf[n];i*i<=t;i++)
+        {
+            boolean flag = true;
             while(n%i==0){
-                    n= n/i;
-                    if(flag) {
-                        happyPrimeCount++;
-                        flag= false;
-                    }
-                    if(happyPrimeCount>2){
-                        return false;
-                    }
+                n= n/i;
+                if(flag) {
+                    happyPrimeCount++;
+                    flag= false;
+                }
+                if(happyPrimeCount>2){
+                    return false;
+                }
             }
         }
         if(n!=1){
@@ -86,6 +90,28 @@ public class H5
         }
     }
 
+
+    private static int[] getSmallestPrimeFactors(){
+        int[] spf = new int[1000000+1];
+        for (int i = 0; i < 1000000; i++) {
+            spf[i] = -1;
+        }
+
+        for (int i = 2; i <= 1000000 ; i++) {
+            if(spf[i]<0){
+                spf[i] = i;
+                for(int j=i;i*j > 0 && i*j<=1000000;j++){
+                    spf[j*i] = i;
+                }
+            }
+
+        }
+
+        return spf;
+    }
+
+
+
     private static int[] getPrimes() {
         int[] primes = new int[1000000+1];
         boolean[] isPrime = new boolean[1000000+1];
@@ -98,7 +124,7 @@ public class H5
 
         for(int i=2;i<isPrime.length;i++){
             if(isPrime[i]){
-                for(int j=i;j*i<=1000000;j++){
+                for(int j=i;j*i> 0 && j*i<=1000000;j++){
                     isPrime[j*i] = false;
                 }
             }
