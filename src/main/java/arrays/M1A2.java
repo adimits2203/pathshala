@@ -117,8 +117,8 @@ public class M1A2 {
     /**
      * https://practice.geeksforgeeks.org/problems/minimum-swaps-required-to-bring-all-elements-less-than-or-equal-to-k-together4847/1#
      *
-     * <B>idea</B> is to count the number of elements less than k to get the window size and then find the best window(max size of loegal elements)
-     * return the diff of this best window wit the legal element count
+     * <B>idea</B> is to count the number of elements less than k to get the window size and then find the best window(max size of legal elements)
+     * return the diff of this best window with the legal element count
      *
      * Input :
      * arr[ ] = {8, 13, 7 ,6, 4, 8, 5, 15 ,11, 13, 18}

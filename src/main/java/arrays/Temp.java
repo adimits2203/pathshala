@@ -42,7 +42,7 @@ public class Temp
         }
         int masterIndex = left;
         for(int i:lesserArr){
-            if(i==0) break;;
+            if(i==0) break;
             arr[masterIndex++] = i;
         }
         pivotIndex = masterIndex;
