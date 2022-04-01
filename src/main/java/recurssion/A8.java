@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class A8 {
+
+    static int count =0;
     public static void main(String[] args) {
-        System.out.println(subsets(new int[]{1,2,3,4}));
+        int[] set = new int[]{1,2,3,0};
+        subsetSum(set,0,set.length-1,3);
     }
 
 
@@ -124,4 +127,25 @@ public class A8 {
         }
         return answer;
     }
+
+    /**
+     * sum of subsets
+     * ip: {1,2,3} & 3(desired sum)
+     * op: {1,2} {3}
+     *
+     * */
+     private static void subsetSum(int[] set, int start, int end,int sum){
+         if(start>=set.length){
+             if(sum==0){
+                 count++;
+                 System.out.println(count);
+             }
+             return;
+         }
+
+         subsetSum(set,start+1, end,sum-set[start]);
+         subsetSum(set,start+1,end,sum );
+
+     }
+
 }

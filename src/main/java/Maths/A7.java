@@ -10,13 +10,57 @@ public class A7 {
         int testCases = sc.nextInt();
         sc.nextLine();
         while(testCases-- > 0){
-            String[] strLineArr = sc.nextLine().split(" ");
-            int N = Integer.parseInt(strLineArr[0]);
-            int M = Integer.parseInt(strLineArr[1]);
-            int X = Integer.parseInt(strLineArr[2]);
-            System.out.println(getTeamsCount(N,M,X));
+            int N = sc.nextInt();
+            if(N%2!=0) System.out.println("-1");
+            else System.out.println(getBracketCombinationCount(N/2));
         }
     }
+
+    /**
+     * You are given a non-negative number N, find the number of valid parentheses expressions of that length. If the answer exists, print the answer modulo 10^9 + 7, otherwise print -1.
+     *
+     * Input Format
+     *
+     * The first line of the input contains a single integer T denoting the number of test cases.
+     * Each test case contains a single integer N.
+     * Constraints
+     *
+     * 1 <= T <= 10^3
+     * 1 <= N <= 10^3
+     * Output Format
+     *
+     * For each test case, output the number  of valid parentheses expressions of length N, on a seperate line.
+     * Example
+     * Input
+     * 2
+     * 4
+     * 5
+     * Output
+     * 2
+     * -1
+     *
+     * solution(catalan)
+     * 1. loop through i = 0 to n-1
+     * 2. for each i, loop through j = 0 to i-1
+     * 3. calculate the catalan number
+     * Sum[i=0 to n-1] C(i) + c(i-1)
+     * */
+     private static int getBracketCombinationCount(int n){
+         int[] catalan = new int[n+1];
+         catalan[0] = 1;
+         catalan[1] = 1;
+         int m = 1000000000+7;
+         for (int i = 2; i <=n; i++) {
+             catalan[i] = 0;
+             for (int j = 0; j < i ; j++) {
+                 catalan[i] += (catalan[j]%m) * (catalan[i-1-j]%m);
+                 catalan[i]%=m;
+             }
+             //System.out.printf("\n catalan of %d  = %d",i, catalan[i]);
+         }
+         return catalan[n];
+     }
+
 
     /**
      * There are

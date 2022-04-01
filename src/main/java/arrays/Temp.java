@@ -4,9 +4,42 @@ public class Temp
 {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{6,3,2,5,11,7};
-      quickSort(arr,0,5);
-        System.out.println(arr);
+        together(new int[]{9,9,9,8,9,8});
+    }
+
+
+    /**
+     * Bring all the 8s together and 9s together
+     * i/p: 898989
+     * o/p: 888999
+     * solution:
+     * idea is to use two pointers to start from both the ends and replace the characters 'wrongly' placed
+     * */
+    private static void together(int[] arr){
+        int l = 0;
+        int r = arr.length-1;
+        while(l <= r){
+            if(arr[l]==8){
+                l++;
+            }
+            if(arr[r]==9){
+                r--;
+            }
+            if(l >= r){
+                break;
+            }
+            if(arr[l]==9 && arr[r]==8){
+                int t = arr[r];
+                arr[r] = arr[l];
+                arr[l] = t;
+                l++;
+                r--;
+            }
+        }
+        for (int i: arr
+             ) {
+            System.out.print(i+ " ,");
+        }
     }
 
 
