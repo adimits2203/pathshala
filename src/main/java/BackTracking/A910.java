@@ -1,6 +1,6 @@
 package BackTracking;
 
-import javafx.util.Pair;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,20 +43,20 @@ public class A910 {
      * recurse
      * Undo the 'something'
      * */
-     private static void possiblePaths(int[][] maze, int i, int j, List<Pair> paths){
+     private static void possiblePaths(int[][] maze, int i, int j, List paths){
          if(i==j && j == maze[0].length-1){
              paths.stream().forEach(System.out::print);
              System.out.print(i+"+"+j);
              System.out.println("");
          }
-         paths.add(new Pair<>(i, j));
+         //paths.add(new Pair<>(i, j));
          if(isValidLoc(maze,i,j+1)){
              possiblePaths(maze,i,j+1,paths);
          }
          if(isValidLoc(maze,i+1,j)){
              possiblePaths(maze,i+1,j,paths);
          }
-         paths.remove(new Pair<>(i, j));
+        // paths.remove(new Pair<>(i, j));
      }
 
     private static boolean isValidLoc(int[][] maze, int i, int j) {

@@ -4,9 +4,33 @@ public class Temp
 {
 
     public static void main(String[] args) {
-        together(new int[]{9,9,9,8,9,8});
+        int[] arr = new int[]{-1,35,33, 42, 10, 14, 19, 27, 44, 26, 31};
+        maxHeap(arr);
+        for (int i: arr
+             ) {
+            System.out.println(i + " ,");
+        }
     }
 
+
+    /**
+     *
+     * */
+    private static void maxHeap(int[] arr){
+        for (int i = 1; i < arr.length; i++) {
+            int j= i;
+            while(j>1 && arr[j]>arr[j/2]){
+                swap(arr,j,j/2);
+                j/=2;
+            }
+        }
+    }
+
+    private static void swap(int[] arr, int from, int to) {
+        int t = arr[from];
+        arr[from] = arr[to];
+        arr[to] = t;
+    }
 
     /**
      * Bring all the 8s together and 9s together
