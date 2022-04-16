@@ -15,8 +15,69 @@ public class S1 {
         for (int i = 0; i <  size; i++) {
             arr[i] = Integer.parseInt(chars[i]);
         }
-        findFirstOne(arr,1);
+        int targetSum = sc.nextInt();
+        findPairSumSorted(arr,targetSum);
      }
+
+
+
+     /**
+      * Pair Sum Sorted
+      * Given a 1-indexed array of integers
+      * nums that is already sorted in non-decreasing order, find two numbers such that they add up to a specific
+      * target  number. Let these two numbers be
+      * numsindex1[]  and numsindex2[] where 1 <= first <= second <= nums.length
+      *
+      * The tests are generated such that there is exactly one solution. You may not use the same element twice.
+      *
+      * You must write an algorithm with
+      * O(nlog(n))
+      *  runtime complexity.
+      *
+      *  Sample Input 0
+      *
+      * 4
+      * 2 7 11 15
+      * 9
+      *
+      * Sample Output 0
+      *
+      * 1 2
+      *
+      * Sample Input 1
+      *
+      * 3
+      * 2 3 4
+      * 6
+      *
+      * Sample Output 1
+      *
+      * 1 3
+      *
+      * Sample Input 2
+      *
+      * 2
+      * -1 0
+      * -1
+      *
+      * Sample Output 2
+      *
+      * 1 2
+      *
+      * Explanation
+      *
+
+      *
+      * */
+      private static void findPairSumSorted(int[] arr, int k){
+          for (int i=0;i< arr.length;i++
+               ) {
+              int s = binarySearch(arr, k-arr[i],i+1);
+              if(s!=-1){
+                  System.out.println(i+1 + " " + (s+1));
+              }
+          }
+      }
 
 
      /**
@@ -148,6 +209,23 @@ public class S1 {
         }
         return -1;
      }
+
+    private static int binarySearch(int[] arr, int key, int low){
+        int high = arr.length - 1;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if(arr[mid] == key){
+                return mid;
+            }
+            else if(arr[mid]<key){
+                low = mid + 1;
+            }
+            else{
+                high = mid - 1;
+            }
+        }
+        return -1;
+    }
 
      /**
       * Given a sorted array of distinct integers nums and a target value,
