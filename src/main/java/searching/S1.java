@@ -8,6 +8,7 @@ public class S1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
+        /*
         int[] arr = new int[size];
         sc.nextLine();
         String s = sc.nextLine();
@@ -15,9 +16,66 @@ public class S1 {
         for (int i = 0; i <  size; i++) {
             arr[i] = Integer.parseInt(chars[i]);
         }
-        int targetSum = sc.nextInt();
-        findPairSumSorted(arr,targetSum);
+        int targetSum = sc.nextInt();*/
+        int[] arr = new int[size];
+        int i = 0;
+        while(size-- > 0){
+            arr[i++] = sc.nextInt();
+        }
+        for (int k: arr
+             ) {
+            System.out.println(sqrt(k));
+        }
      }
+
+
+     /**
+      * Square Root
+      * Input Format
+      *
+      * The first line of input contains
+      * T
+      * , number of testcases
+      * Each testcase contains a positive integer
+      * N
+      *
+      * Sample Input 0
+      *
+      * 6
+      * 4
+      * 8
+      * 16
+      * 0
+      * 9
+      * 2
+      *
+      * Sample Output 0
+      *
+      * 2
+      * 2
+      * 4
+      * 0
+      * 3
+      * 1
+      *
+      * */
+      private static int sqrt(int n){
+            int l = 0, h = n;
+            while (l<=h){
+                int m = (l+h)/2;
+                if(m*m > n){
+                    h = m-1;
+                }
+                else{
+                    if(m*m == n || (m+1)*(m+1) > n)
+                        return m;
+                    else{
+                        l = m + 1;
+                    }
+                }
+            }
+            return -1;
+      }
 
 
 
