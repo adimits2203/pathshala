@@ -6,7 +6,7 @@ import java.util.Map;
 public class HashingMain {
 
     public static void main(String[] args) {
-        System.out.println(findsum(new int[]{4,2,-3,6}, 5));
+        System.out.println(findLargestSubArrayWithZeroSum(new int[]{0,0,0}, 5));
     }
 
 
@@ -35,7 +35,7 @@ public class HashingMain {
              if(sum==0){
                  return true;
              }
-             if(hash.get(sum)!=null){// sum is repeating, there is subarray wit zero sum
+             if(hash.get(sum)!=null){// sum is repeating, there is sub-array wit zero sum
                  return true;
              }
              else{
@@ -44,4 +44,46 @@ public class HashingMain {
          }
          return false;
       }
+
+      /**
+       *https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
+       *
+       * Given an array of integers, find the length of the longest sub-array with a sum that equals 0.
+       *
+       * Examples:
+       *
+       * Input: arr[] = {15, -2, 2, -8, 1, 7, 10, 23};
+       * Output: 5
+       * Explanation: The longest sub-array with
+       * elements summing up-to 0 is {-2, 2, -8, 1, 7}
+       *
+       * Input: arr[] = {1, 2, 3}
+       * Output: 0
+       * Explanation:There is no sub-array with 0 sum
+       *
+       * Input:  arr[] = {1, 0, 3}
+       * Output:  1
+       * Explanation: The longest sub-array with
+       * elements summing up-to 0 is {0}
+       * */
+      private static int findLargestSubArrayWithZeroSum(int arr[],int n)
+      {
+          Map<Integer, Integer> hash = new HashMap<>();
+          int sum=0, result=0;
+          hash.put(0,-1);
+          for (int i = 0; i < arr.length ; i++) {
+              sum+=arr[i];
+              if(hash.get(sum)!=null){// sum is repeating, there is sub-array wit zero sum
+                  result = Math.max(result,i-hash.get(sum));
+                  System.out.println("result now is :"+ result);
+              }
+              else{
+                  hash.put(sum,i);
+              }
+          }
+          return result;
+      }
+
+
+
 }
