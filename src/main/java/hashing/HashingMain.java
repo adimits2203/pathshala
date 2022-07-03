@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 public class HashingMain {
 
     public static void main(String[] args) {
-        String s = "0|1|2|3|4";
-        System.out.println(reverse(s));
+        HashingMain main = new HashingMain();
+        System.out.println(main.palindromePairs(new String[]{"bb","bababab","baab","abaabaa","aaba","","bbaa","aba","baa","b"}));
 
         //System.out.println(lenOfLongSubarr(new int[]{-13 ,0, 6, 15, 16, 2, 15, -12, 17, -16, 0, -3, 19, -3, 2, -9, -6}, 17,15));
     }
@@ -190,7 +190,8 @@ public class HashingMain {
           }
           Map<Pair, Boolean> duplicacyCheckMap = new HashMap();
           for(int j=0;j<words.length;j++){// empty
-              if(reverseWordMap.get("")!=null && reverseWordMap.get("")!=j && isPalindrome(words[j])  && duplicacyCheckMap.get(new Pair(j,reverseWordMap.get("")))==null){
+              if(reverseWordMap.get("")!=null && reverseWordMap.get("")!=j && isPalindrome(words[j])
+                      && duplicacyCheckMap.get(new Pair(j,reverseWordMap.get("")))==null){
                     duplicacyCheckMap.put(new Pair(j,reverseWordMap.get("")),true);
                     duplicacyCheckMap.put(new Pair(reverseWordMap.get(""),j),true);
                     List l1 = new ArrayList();
@@ -204,10 +205,37 @@ public class HashingMain {
               }
           }
 
-          for(int j=0;j<words.length;j++) {// empty
-
+          for(int j=0;j<words.length;j++) {// for prefix
+              for(int k=0;k<words[j].length();k++){
+                  String prefix = words[j].substring(0,k+1);
+                  if(reverseWordMap.get(prefix)!=null && isPalindrome(words[j].substring(k, words[j].length()-1))
+                          && duplicacyCheckMap.get(new Pair(j, reverseWordMap.get(prefix)))==null
+                          && reverseWordMap.get(prefix)!=j){
+                      duplicacyCheckMap.put(new Pair(j,reverseWordMap.get(prefix)),true);
+                      List l1 = new ArrayList();
+                      l1.add(j);
+                      l1.add(reverseWordMap.get(prefix));
+                      result.add(l1);
+                  }
+              }
           }
-              return result;
+
+          for(int j=0;j<words.length;j++) {// for suffix
+              for(int k=words[j].length()-1;k>=0;k--){
+                  String suffix = words[j].substring(k);
+                  if(reverseWordMap.get(suffix)!=null && isPalindrome(words[j].substring(0, k))
+                          && duplicacyCheckMap.get(new Pair(reverseWordMap.get(suffix),j))==null
+                          && reverseWordMap.get(suffix)!=j){
+                      duplicacyCheckMap.put(new Pair(reverseWordMap.get(suffix),j),true);
+                      List l1 = new ArrayList();
+                      l1.add(reverseWordMap.get(suffix));
+                      l1.add(j);
+                      result.add(l1);
+                  }
+              }
+          }
+
+          return result;
       }
 
     private boolean isPalindrome(String word) {
@@ -215,6 +243,7 @@ public class HashingMain {
           int i=0, j=charArr.length-1;
           while(i<j){
               if(charArr[i]!=charArr[j]) return false;
+              i++;j--;
           }
           return true;
     }
