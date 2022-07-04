@@ -354,14 +354,14 @@ public class S1 {
            }
            while(low<=high){
                int m = (high+low)/2;
-               int c = countLessThan(arr, m);
+               int c = countLessOrEquals(arr, m);
                if(c < k) {
                    low=m+1;
                }
                else {
-                   int c1=countLessThan(arr,m-1);
+                   int c1=countLessOrEquals(arr,m-1);
                    if(c1 < k) {
-                       return m-1;
+                       return m;
                    }
                    else{
                         high = m -1;
@@ -372,11 +372,11 @@ public class S1 {
 
        }
 
-       private static int countLessThan(int[] arr, int e){
+       private static int countLessOrEquals(int[] arr, int e){
            int counter = 0;
            for (int a:arr
                 ) {
-               if(a<e) counter++;
+               if(a<=e) counter++;
            }
            return counter;
        }
