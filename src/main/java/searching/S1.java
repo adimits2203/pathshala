@@ -8,7 +8,6 @@ public class S1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
-        /*
         int[] arr = new int[size];
         sc.nextLine();
         String s = sc.nextLine();
@@ -16,16 +15,8 @@ public class S1 {
         for (int i = 0; i <  size; i++) {
             arr[i] = Integer.parseInt(chars[i]);
         }
-        int targetSum = sc.nextInt();*/
-        int[] arr = new int[size];
-        int i = 0;
-        while(size-- > 0){
-            arr[i++] = sc.nextInt();
-        }
-        for (int k: arr
-             ) {
-            System.out.println(sqrt(k));
-        }
+        int k = sc.nextInt();
+        System.out.println(findKthSmallest(arr,k));
      }
 
 
@@ -311,5 +302,84 @@ public class S1 {
           return low;
 
       }
+
+      /**
+       *       K-th Smallest in Array       *
+       *
+       *Given an array arr[] of size N having no duplicates and an integer K, the task is to find the Kth smallest element from the array in constant extra space and the array can’t be modified.
+       *
+       * Input Format
+       *
+       * The first line contains        N        , total number of elements
+       * The second line contains  N  space-separated integers
+       * The third line contains K
+       *
+       * Output Format
+       *
+       * Print the k-smallest element
+       *
+       *
+       * Sample Input 1
+       *
+       * 6
+       * 7 10 4 3 20 15
+       * 4
+       *
+       * Sample Output 1
+       *
+       * 10
+       *
+       * Explanation
+       *
+       * 4 th  smallest element in the array is 10
+       *
+       * Idea is to use binary search.
+       *  Since the count of elements less than 'e' is a monotonic function, binary search can be used to find the number at kth position
+       *  find low(est) and high(est) elements in the array
+       *  find mid(l+h/2)
+       *  for each mid apply the function(count of elements less than m) func(mid)
+       *    if the count is less than k move the low to mid +1
+       *    else if the count is more than k then either we are at desired number or ahead of it
+       *        check the func(mid-1) if >= k make high = mid - 1
+       *        else if func(mid-1) < k return this number
+       *
+       * */
+       private  static int findKthSmallest(int[] arr, int k){
+            int res=0;
+            int low=arr[0], high = arr[0];
+           for (int a: arr
+                ) {
+               if(a<low) low = a;
+               if(a>high) high =a;
+           }
+           while(low<=high){
+               int m = (high+low)/2;
+               int c = countLessThan(arr, m);
+               if(c < k) {
+                   low=m+1;
+               }
+               else {
+                   int c1=countLessThan(arr,m-1);
+                   if(c1 < k) {
+                       return m-1;
+                   }
+                   else{
+                        high = m -1;
+                   }
+               }
+           }
+           return res;
+
+       }
+
+       private static int countLessThan(int[] arr, int e){
+           int counter = 0;
+           for (int a:arr
+                ) {
+               if(a<e) counter++;
+           }
+           return counter;
+       }
+
 
 }
