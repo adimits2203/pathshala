@@ -6,19 +6,31 @@ import java.util.Scanner;
 public class S1 {
 
     public static void main(String[] args) {
-        /*Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
-        int[] arr = new int[size];
+        int[][] arr = new int[size][size];
         sc.nextLine();
-        String s = sc.nextLine();
-        String[] chars = s.split(" ");
-        for (int i = 0; i <  size; i++) {
-            arr[i] = Integer.parseInt(chars[i]);
+        for (int i =0 ;i<size;i++){
+            String line = sc.nextLine();
+            String[] lineChars = line.split(" ");
+            int j=0;
+            for (String str:lineChars
+                 ) {
+                arr[i][j++] = Integer.parseInt(str);
+            }
         }
         int k = sc.nextInt();
-        System.out.println(findKthSmallest(arr,k));*/
+        System.out.println(findKthElementInMatrix(arr,k));
 
-        System.out.println(findPeakElement(new int[]{1,2,1,3,5,6,4}));
+
+//        for(int i=0;i<size;i++){
+//            for(int j=0;j<size;j++){
+//                System.out.print(arr[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+        //System.out.println("k= "+k);
+
      }
 
 
@@ -429,6 +441,118 @@ public class S1 {
            }
            return 0;
        }
+
+
+       /**
+        *        K-th Smallest in Matrix
+        *
+        *        Given an
+        * N
+        *
+        * ∗
+        *
+        * N
+        *  matrix where each of the rows and columns are sorted in ascending order, print the  K − th
+        *  smallest element in the matrix.
+        *
+        *  Note that it is the
+        * K
+        * −
+        * t
+        * h
+        *  smallest element in the sorted order, not the
+        * k
+        * −
+        * t
+        * h
+        *  distinct element.
+        *
+        * Try to solve this question using Binary Search
+        *
+        * Input Format
+        *
+        * The first line of input contains
+        * N
+        * The second line contains  N ∗ N
+        *  integers in the form of a matrix
+        * The third line contains an integer K
+        *
+        * Sample Input 0
+        *
+        * 3
+        * 1 5 9
+        * 10 11 13
+        * 12 13 15
+        * 8
+        *
+        * Sample Output 0
+        *
+        * 13
+        *
+        * Idea is to use Binary search on answer(which is mid in all binary searches). Since first and last elements are smalled and largest resp. we can  use this observation
+        * without the need to go through the full array nad getting min of first and max of last element in each row to get over all
+        * largest and smallest element
+        *
+        * mid = l+h / 2
+        *
+        * Till l<=h
+        * for each row
+        *  Calculate the monotonic func:: count of elements less than or equals to 'mid' if sum[func(mid)] < k move low to the right
+        *  else check if func(mid-1) < k then mid is the answer else move high to left
+        *
+        *
+        * */
+        public static int findKthElementInMatrix(int[][] arr, int k){
+            int result = 0;
+            int l = findLowest(arr);
+            int h = findHighest(arr);
+            while(l<=h){
+                int m = (l+h)/2;// THE mid
+                int sum=0;
+                for (int[] arrRow: arr
+                     ) {
+                    sum+=countLessOrEquals(arrRow, m);
+                }
+                if(sum<k){
+                    l = m + 1;
+                }
+                else{
+                    sum=0;
+                    for (int[] arrRow: arr
+                    ) {
+                        sum+=countLessOrEquals(arrRow, m-1);
+                    }
+                    if(sum < k){
+                        return m;
+                    }
+                    else{
+                        h = m-1;
+                    }
+                }
+
+            }
+            
+            return result;
+
+        }
+
+    private static int findLowest(int[][] arr) {
+        int min = arr[0][0];
+        for (int[] arrRow: arr
+             ) {
+            min = Math.min(arrRow[0],min);
+        }
+        return min;
+    }
+
+    private static int findHighest(int[][] arr) {
+        int max = arr[0][arr.length-1];
+        for (int[] arrRow: arr
+        ) {
+            max = Math.max(arrRow[arr.length-1],max);
+        }
+        return max;
+    }
 
 
 }
