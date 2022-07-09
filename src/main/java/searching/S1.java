@@ -1,6 +1,7 @@
 package searching;
 
 import javax.sound.midi.Soundbank;
+import javax.swing.*;
 import java.util.Scanner;
 
 public class S1 {
@@ -8,19 +9,27 @@ public class S1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
-        int[][] arr = new int[size][size];
+        int[] arr1 = new int[size];
+        int[] arr2 = new int[size-1];
         sc.nextLine();
-        for (int i =0 ;i<size;i++){
-            String line = sc.nextLine();
+        String line = sc.nextLine();
             String[] lineChars = line.split(" ");
-            int j=0;
+            int i =0;
             for (String str:lineChars
                  ) {
-                arr[i][j++] = Integer.parseInt(str);
+                arr1[i++] = Integer.parseInt(str);
             }
-        }
-        int k = sc.nextInt();
-        System.out.println(findKthElementInMatrix(arr,k));
+         line = sc.nextLine();
+         lineChars = line.split(" ");
+          i=0;
+            for (String str:lineChars
+            ) {
+                arr2[i++] = Integer.parseInt(str);
+            }
+
+
+
+         System.out.println(findIndexOfExtraElement(arr1,arr2));
 
 
 //        for(int i=0;i<size;i++){
@@ -554,5 +563,44 @@ public class S1 {
         return max;
     }
 
+
+    /**
+     *Index of Extra Element
+     * Given two sorted arrays of distinct elements. There is only 1 difference between the arrays. First array has one element extra added in between. Find the index of the extra element.
+     *
+     * Sample Input 1
+     *
+     * 7
+     * 2 4 6 8 9 10 12
+     * 2 4 6 8 10 12
+     *
+     * Sample Output 1
+     *
+     * 4
+     *
+     * Explanation
+     *
+     * In the second array, 9 is missing and its index in the first array is 4.
+     *
+     * Idea is to use binary search to reduce the search space logarithamitically
+     * */
+     private static int findIndexOfExtraElement(int[] arr1, int[] arr2){
+         int l= 0, h = arr1.length -1;
+         while(l<=h){
+             int m = (l+h)/2;
+             if(m>=arr2.length) return m;
+             if(arr1[m]==arr2[m]) l = m+1;
+             else{
+                 if(arr1[m-1]==arr2[m-1]){
+                     return m;
+                 }
+                 else
+                 {
+                     h = m -1;
+                 }
+             }
+         }
+         return  -1;
+     }
 
 }
