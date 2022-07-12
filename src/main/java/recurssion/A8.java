@@ -8,14 +8,16 @@ public class A8 {
 
     static int count =0;
     public static void main(String[] args) {
-        int[] set = new int[]{1,2,3,0};
-        subsetSum(set,0,set.length-1,3);
+        Solution solution = new Solution();
+        System.out.println(solution.restoreIpAddresses("124231232"));
     }
+
+
 
 
     /**
      * https://leetcode.com/problems/subsets/
-     *  statrt with an empty set and recusivley decide whether you want to keep or leave the current element, starting from 0th location
+     *  start with an empty set and recursivley decide whether you want to keep or leave the current element, starting from 0th location
      *  end once you see the end of given set
      * */
     public static List<List<Integer>> subsets(int[] nums) {
