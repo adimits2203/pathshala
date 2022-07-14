@@ -8,9 +8,8 @@ public class HashingMain {
 
     public static void main(String[] args) {
         HashingMain main = new HashingMain();
-        System.out.println(main.palindromePairs(new String[]{"bb","bababab","baab","abaabaa","aaba","","bbaa","aba","baa","b"}));
-
-        //System.out.println(lenOfLongSubarr(new int[]{-13 ,0, 6, 15, 16, 2, 15, -12, 17, -16, 0, -3, 19, -3, 2, -9, -6}, 17,15));
+        //System.out.println(main.palindromePairs(new String[]{"bb","bababab","baab","abaabaa","aaba","","bbaa","aba","baa","b"}));
+        System.out.println(subarraySum(new int[]{0,0,0,0,0,0,0,0,0,0}, 0));
     }
 
 
@@ -292,5 +291,37 @@ public class HashingMain {
           return new String(charArr);
     }
 
+
+    /**
+     * https://leetcode.com/problems/subarray-sum-equals-k/
+     * Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+     *
+     * A subarray is a contiguous non-empty sequence of elements within an array.
+     *
+     * Example 1:
+     *
+     * Input: nums = [1,1,1], k = 2
+     * Output: 2
+     * Example 2:
+     *
+     * Input: nums = [1,2,3], k = 3
+     * Output: 2
+     *
+     * Idea is to calculate 'prefix sum' since we are looking for contigeous sub array
+     * */
+     public static int subarraySum(int[] nums, int k) {
+         Map<Integer, Integer> prefixMap = new HashMap<>();
+         prefixMap.put(0,1);
+         int res = 0, sum=0;
+         for(int i =0 ;i< nums.length ; i++){
+             sum+= nums[i]; // prefix sum
+             if(prefixMap.get(sum - k)!=null) {// there exists a sub arr  whose sum is k
+                res+=prefixMap.get(sum - k);
+             }
+             prefixMap.put(sum,prefixMap.getOrDefault(sum,0)+1);
+
+         }
+         return res;
+     }
 
 }
