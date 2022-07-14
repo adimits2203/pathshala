@@ -29,7 +29,7 @@ public class S1 {
 
 
 
-         System.out.println(findIndexOfExtraElement(arr1,arr2));
+       //  System.out.println(findIndexOfExtraElement(arr1,arr2));
 
 
 //        for(int i=0;i<size;i++){
@@ -580,27 +580,27 @@ public class S1 {
      *
      * Explanation
      *
-     * In the second array, 9 is missing and its index in the first array is 4.
+     private static int findIndexOfExtraElement(int[] arr1, int[] arr2){
+     int l= 0, h = arr1.length -1;
+     while(l<=h){
+     int m = (l+h)/2;
+     if(m>=arr2.length) return m;
+     if(arr1[m]==arr2[m]) l = m+1;
+     else{
+     if(arr1[m-1]==arr2[m-1]){
+     return m;
+     }
+     else
+     {
+     h = m -1;
+     }
+     }
+     }
+     return  -1;
+     }   * In the second array, 9 is missing and its index in the first array is 4.
      *
      * Idea is to use binary search to reduce the search space logarithamitically
      * */
-     private static int findIndexOfExtraElement(int[] arr1, int[] arr2){
-         int l= 0, h = arr1.length -1;
-         while(l<=h){
-             int m = (l+h)/2;
-             if(m>=arr2.length) return m;
-             if(arr1[m]==arr2[m]) l = m+1;
-             else{
-                 if(arr1[m-1]==arr2[m-1]){
-                     return m;
-                 }
-                 else
-                 {
-                     h = m -1;
-                 }
-             }
-         }
-         return  -1;
-     }
+     
 
 }
