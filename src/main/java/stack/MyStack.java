@@ -5,7 +5,12 @@ import java.util.Stack;
 public class MyStack {
 
     public static void main(String[] args) {
-        System.out.println(isValidN("babcc"));
+        long[] res = nextLargerElement(new long[]{1,3,2,4}, 4);
+        for (long l :res
+             ) {
+            System.out.println(l);
+        }
+        //System.out.println(nextLargerElement(new long[]{1,3,2,4}, 4));
     }
 
     /**
@@ -144,7 +149,32 @@ public class MyStack {
         return false;
     }
 
-
+    /**
+     * https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1#_=_
+     *
+     * Idea is to create a stack of elements which is sorted in desc order
+     *  loop though tht elements
+     *      if the element is less than stack.top() then push the element
+     *      else keep popping the elements till you reach the element greater than the current one
+     *
+     *
+     * */
+    public static long[] nextLargerElement(long[] arr, int n)
+    {
+        long[] res = new long[arr.length];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = -1;
+        }
+        Stack<Integer> stack = new Stack();
+        stack.push(0);
+        for (int i = 1; i < arr.length; i++) {
+            while(!stack.isEmpty() && arr[i] > arr[stack.peek()]){
+                res[stack.pop()] = arr[i];
+            }
+            stack.push(i);
+        }
+        return res;
+    }
 
 
 }
