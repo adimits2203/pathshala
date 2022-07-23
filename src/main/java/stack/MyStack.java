@@ -5,15 +5,7 @@ import java.util.Stack;
 public class MyStack {
 
     public static void main(String[] args) {
-        Stack s = new Stack();
-        s.push(4);
-        s.push(3);
-        s.push(2);
-        s.push(1);
-        System.out.println("before: "+ s);
-        reverse(s);
-        System.out.println("after: "+ s);
-        System.out.println("peek : "+ s.peek());
+        System.out.println(isValid("]["));
     }
 
     /**
@@ -50,7 +42,45 @@ public class MyStack {
       }
 
       /**
-       *
+       * https://leetcode.com/problems/valid-parentheses/
        * */
+       public static boolean isValid(String s) {
+            Stack<Character> stk = new Stack();
+            char[] arr = s.toCharArray();
+           for (char c:arr
+                ) {
+               if(isOpen(c)){
+                   stk.push(c);
+               }
+               else if(!stk.isEmpty()){// close brace
+
+                   if(stk.peek()=='(' && c==')') {
+                       stk.pop();
+                       continue;
+                   }
+                   if(stk.peek()=='{' && c=='}') {
+                       stk.pop();
+                       continue;
+                   }
+                   if(stk.peek()=='[' && c==']') {
+                       stk.pop();
+                       continue;
+                   }
+                   return false;
+               }
+               else {
+                   return false;
+               }
+           }
+           if(stk.isEmpty()){
+               return true;
+           }
+            return false;
+       }
+
+    private static boolean isOpen(char c) {
+           return c=='(' || c=='{' || c=='[';
+    }
+
 
 }

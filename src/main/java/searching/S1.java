@@ -601,6 +601,18 @@ public class S1 {
      *
      * Idea is to use binary search to reduce the search space logarithamitically
      * */
-     
+
+
+
+     /**
+      *https://leetcode.com/problems/first-bad-version/
+      *
+      * Idea is to use Binary search to minimize search count
+      * */
+     public int firstBadVersion(int n) {
+            return 0;
+     }
+
+
 
 }
