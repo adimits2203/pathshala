@@ -5,11 +5,17 @@ import java.util.Stack;
 public class MyStack {
 
     public static void main(String[] args) {
-        long[] res = nextLargerElement(new long[]{1,3,2,4}, 4);
-        for (long l :res
-             ) {
-            System.out.println(l);
-        }
+       MinStack minStack = new MinStack();
+       minStack.push(512);;
+       minStack.push(-1024);;
+       minStack.push(-1024);
+       minStack.push(512);
+       minStack.pop();
+        System.out.println(minStack.getMin());
+       minStack.pop();
+        System.out.println(minStack.getMin());
+        minStack.pop();
+        System.out.println( minStack.getMin());
         //System.out.println(nextLargerElement(new long[]{1,3,2,4}, 4));
     }
 

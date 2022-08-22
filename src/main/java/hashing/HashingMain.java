@@ -9,7 +9,7 @@ public class HashingMain {
     public static void main(String[] args) {
         HashingMain main = new HashingMain();
         //System.out.println(main.palindromePairs(new String[]{"bb","bababab","baab","abaabaa","aaba","","bbaa","aba","baa","b"}));
-        System.out.println(subarraySum(new int[]{0,0,0,0,0,0,0,0,0,0}, 0));
+        //System.out.println(subarraySum(new int[]{[0,0,0,0,0,0,0,0,0,0]}, 3));
     }
 
 
@@ -311,15 +311,19 @@ public class HashingMain {
      * */
      public static int subarraySum(int[] nums, int k) {
          Map<Integer, Integer> prefixMap = new HashMap<>();
-         prefixMap.put(0,1);
+         prefixMap.put(0,-1);
          int res = 0, sum=0;
          for(int i =0 ;i< nums.length ; i++){
-             sum+= nums[i]; // prefix sum
-             if(prefixMap.get(sum - k)!=null) {// there exists a sub arr  whose sum is k
-                res+=prefixMap.get(sum - k);
+             if(nums[i]==0){
+                 res++;
              }
-             prefixMap.put(sum,prefixMap.getOrDefault(sum,0)+1);
-
+             sum+=nums[i]; // prefix sum
+             if(prefixMap.get(sum - k)!=null) {// there exists a sub arr  whose sum is k
+                res++;
+             }
+             if(prefixMap.get(sum)==null){
+                 prefixMap.put(sum,i);
+             }
          }
          return res;
      }
