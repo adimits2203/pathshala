@@ -21,9 +21,8 @@ public class A8 {
      *  end once you see the end of given set
      * */
     public static List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ansList = new ArrayList<>();
         int[] sub = new int[nums.length];
-         getAllSubsets(nums,0,0,sub);
+        getAllSubsets(nums,0,0,sub);
         return null;
     }
 

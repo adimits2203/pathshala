@@ -10,7 +10,6 @@ public class S1 {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int[] arr1 = new int[size];
-        int[] arr2 = new int[size-1];
         sc.nextLine();
         String line = sc.nextLine();
             String[] lineChars = line.split(" ");
@@ -19,31 +18,27 @@ public class S1 {
                  ) {
                 arr1[i++] = Integer.parseInt(str);
             }
-         line = sc.nextLine();
-         lineChars = line.split(" ");
-          i=0;
-            for (String str:lineChars
-            ) {
-                arr2[i++] = Integer.parseInt(str);
-            }
+        int tcs = sc.nextInt();
+        int[] tcArr = new int[tcs];
+        for (int j = 0; j < tcs ; j++) {
+            int n = sc.nextInt();
+            tcArr[j] = n;
+        }
+
+        for (int p :tcArr
+             ) {
+            System.out.println(findIndex(arr1, p));
+        }
 
 
 
-       //  System.out.println(findIndexOfExtraElement(arr1,arr2));
-
-
-//        for(int i=0;i<size;i++){
-//            for(int j=0;j<size;j++){
-//                System.out.print(arr[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-        //System.out.println("k= "+k);
 
      }
 
 
-     /**
+
+
+    /**
       * Square Root
       * Input Format
       *
@@ -613,6 +608,164 @@ public class S1 {
             return 0;
      }
 
+     /**
+      *Rotated Sorted Array
+      * For example,
+      * [
+      * 0
+      * ,
+      * 1
+      * ,
+      * 2
+      * ,
+      * 4
+      * ,
+      * 5
+      * ,
+      * 6
+      * ,
+      * 7
+      * ]
+      *  might be rotated at pivot index
+      * 3
+      *  and become
+      * [
+      * 4
+      * ,
+      * 5
+      * ,
+      * 6
+      * ,
+      * 7
+      * ,
+      * 0
+      * ,
+      * 1
+      * ,
+      * 2
+      * ]
+      * .
+      *
+      * Input Format
+      *
+      * The first line of input contains
+      * N
+      * , size of the array
+      * The second line of input contains
+      * N
+      *  space-separated array elements
+      * n
+      * u
+      * m
+      * s
+      * [
+      * 0
+      * ]
+      * ,
+      * .
+      * .
+      * .
+      * .
+      * .
+      * .
+      * .
+      * .
+      * ,
+      * n
+      * u
+      * m
+      * s
+      * [
+      * N
+      * −
+      * 1
+      * ]
+      * The third line of the input contains a single integer
+      * T
+      *  denoting the number of test cases. The description of
+      * T
+      *  test cases follows.
+      * Each test case consists of a positive integer
+      *
+      * Sample Input 0
+      *
+      * 7
+      * 4 5 6 7 0 1 2
+      * 2
+      * 0
+      * 3
+      *
+      * Sample Output 0
+      *
+      * 4
+      * -1
+      *
+      * Explanation
+      *
+      * 0  is present at position 4
+      * 3  is not present in the array
+      *
+      * Idea is to use binary search. Since the array is sorted. Only issue we have is sorted array is broken into two parts which are sorted.(since the array is rotated)
+      * so we need to find the inflection point where first part p1 ends and p2 starts. We can use binary search to find the point as
+      * if we are at the inflection point then arr[m] > arr[m+1] --> this is true only for inflection
+      * else if we(mid point m) are on the left side of inflection point then arr[m] <= arr[n-1] then move left h = m-1
+      * else if we are at the right side of inflection point then arr[m] > arr[n-1] them move right l = m+1
+      * */
+     private static int findIndex(int[] arr1, int p) {
+         int res = -1;
+         int inflectionIndex = findInflectionIndex(arr1);
+         if(inflectionIndex==-1){// search in full array
+             res = binarySearchLowHigh(arr1,0,arr1.length-1,p);
+         }
+         else if(p <= arr1[arr1.length-1]){// element is on the left side of inflection point
+             res = binarySearchLowHigh(arr1,inflectionIndex+1,arr1.length-1,p);
+         }
+         else{
+             res = binarySearchLowHigh(arr1,0,inflectionIndex,p);
+         }
+         return res;
+    }
+
+    private static int binarySearchLowHigh(int[] arr1, int l, int h, int p) {
+         int m = -1;
+         while(l<=h){
+             m = (l+h)/2;
+             if(arr1[m]==p){
+                 return m;
+             }
+             else if(arr1[m] > p){
+                 h = m - 1;
+             }
+             else {
+                 l  = m + 1 ;
+             }
+         }
+        if(arr1[m]==p){
+            return m;
+        }
+        return -1;
+    }
+
+    private static int findInflectionIndex(int[] arr) {
+         int n = arr.length;;
+         int l=0, h=n-1,m=-1;
+         while(l<=h){
+             m = (l+h)/2;
+             if(arr[m] <= arr[n-1]){
+                 h = m-1;
+             }
+             else if(arr[m] > arr[m+1]){
+                 return m;
+             }
+             else if(arr[m] > arr[n-1]){
+                 l = m+1;
+             }
+         }
+        if(arr[m] > arr[m+1]){
+            return m;
+        }
+        return -1;
+    }
 
 
 }
