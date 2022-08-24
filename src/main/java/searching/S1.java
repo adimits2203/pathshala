@@ -740,9 +740,6 @@ public class S1 {
                  l  = m + 1 ;
              }
          }
-        if(arr1[m]==p){
-            return m;
-        }
         return -1;
     }
 
@@ -761,9 +758,6 @@ public class S1 {
                  l = m+1;
              }
          }
-        if(arr[m] > arr[m+1]){
-            return m;
-        }
         return -1;
     }
 
