@@ -7,7 +7,9 @@ import java.util.Set;
 
 public class H6 {
     public static void main(String[] args) {
-        System.out.println(sumFourDivisors( new int[]{1,2,3,4,5,6,7,8,9,10}));
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sherlockGirlfriend(n);
 
     }
 
@@ -115,4 +117,96 @@ public class H6 {
 
          return isIsPrime;
      }
+
+
+     /**
+      * Bob have given a integer
+      * N
+      *  he have to find a triplet
+      * X
+      * ,
+      * Y
+      *  and
+      * Z
+      *  where each of them are less than or equal to
+      * N
+      *  and their LCM is maximum.
+      *
+      * Input Format
+      * A single Integer
+      * N
+      *
+      * Output Format
+      * A single integer, the maximum LCM Bob can achieve.
+      *
+      * Example
+      * Input
+      * 7
+      * Output
+      * 210
+      *
+      * */
+      private static long lcmChallenge(long i){
+            if(i<=2){
+                return i;
+            }
+            else if(i%2!=0){
+                return i * (i-1) * (i-2);
+            }
+            else if(i%3!=0){
+                return i * (i-1) * (i-3);
+            }
+            else{
+                return (i-1) * (i-2) *(i-3);
+            }
+
+
+      }
+
+
+
+    private static long lcm(long a, long b){
+        return a * b / (gcd(a,b));
+    }
+
+    private static long gcd(long a, long b){
+          long min = Math.min(a,b);
+          long max = Math.max(a,b);
+          while(max%min!=0){
+              long t = max;
+              max = min;
+              min = t%min;
+          }
+          return min;
+    }
+
+
+    /***
+     * https://codeforces.com/contest/776/problem/B
+     *
+     *
+     * idea is to check is to start from last and assign 'i'(start from 1)
+     * and change if the number is prime divisor of nth number
+     */
+     private static void sherlockGirlfriend(int n){
+         int[] color = new int[n];
+         boolean[] primes = getPrimes();
+         int count = 1;
+         for (int i = 2; i-2 < n; i++) {
+             if (primes[i]) {
+                 color[i-2]=1;
+             }
+             else {
+                 count =2;
+                 color[i-2] = 2;
+             }
+         }
+         System.out.println(count);
+         for (int i:color
+              ) {
+             System.out.print(i+" ");
+         }
+     }
+
+
 }

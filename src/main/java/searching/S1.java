@@ -18,21 +18,7 @@ public class S1 {
                  ) {
                 arr1[i++] = Integer.parseInt(str);
             }
-        int tcs = sc.nextInt();
-        int[] tcArr = new int[tcs];
-        for (int j = 0; j < tcs ; j++) {
-            int n = sc.nextInt();
-            tcArr[j] = n;
-        }
-
-        for (int p :tcArr
-             ) {
-            System.out.println(findIndex(arr1, p));
-        }
-
-
-
-
+        System.out.println(singleElement(arr1));
      }
 
 
@@ -760,6 +746,90 @@ public class S1 {
          }
         return -1;
     }
+
+
+    /**
+     * Only Repeating Element
+     *
+     * Sample Input 0
+     *
+     * 7
+     * 1 2 3 4 4 5 6
+     *
+     * Sample Output 0
+     *
+     * 4
+     *
+     * Idea is to use the index as numbers are consecutive and sorted
+     * */
+     private static int onlyRepeatingElement(int[] arr){
+         int low=0,high= arr.length-1,m;
+         while(low<=high){
+             m = (low+high)/2;
+             if(m<arr[m]){// we are on the left of desired
+                 low = m +1;
+             }
+             else{
+                 if(arr[m]==m && (arr[m]==arr[m-1] || arr[m]==arr[m+1])){
+                     return arr[m];
+                 }
+                 else{
+                     high = m-1;
+                 }
+             }
+         }
+         return -1;
+     }
+
+
+     /**
+      * Single Element
+      *
+      * Sample Input 0
+      *
+      * 7
+      * 3 3 7 7 10 11 11
+      *
+      * Sample Output 0
+      *
+      * 10
+      *
+      *
+      * */
+      private static int singleElement(int[] arr){
+          int low=0,high= arr.length-1,m;
+          while(low<=high){
+              m = (low+high)/2;
+              if(arr[m]!=arr[m-1] && arr[m]!=arr[m+1]){
+                  return arr[m];
+              }
+              else if(arr[m] == arr[m-1] && (m%2!=0)){
+                  {// m is odd
+                      low = m+1;
+                  }
+              }
+              else if(arr[m] == arr[m+1] && ((m+1)%2!=0)){
+                  {
+                      {
+                          low = m+1;
+                      }
+                  }
+              }
+              else if(arr[m] == arr[m-1] && (m%2==0)){
+                  {// m is even
+                      high = m-1;
+                  }
+              }
+              else if(arr[m] == arr[m+1] && ((m+1)%2==0)){
+                  {
+                      high = m-1;
+                  }
+              }
+
+
+          }
+          return -1;
+      }
 
 
 }

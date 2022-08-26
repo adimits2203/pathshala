@@ -149,4 +149,37 @@ public class A8 {
 
      }
 
+    /***
+     * https://leetcode.com/problems/combinations/
+     * Example 1:
+     *
+     * Input: n = 4, k = 2
+     * Output:
+     * [
+     *   [2,4],
+     *   [3,4],
+     *   [2,3],
+     *   [1,2],
+     *   [1,3],
+     *   [1,4],
+     * ]
+     * Example 2:
+     *
+     * Input: n = 1, k = 1
+     * Output: [[1]]
+     *
+     * Idea is to use recursion
+     */
+     public List<List<Integer>> combine(int n, int k) {
+            if(n==1){
+
+            }
+         for (int i = 1; i <= n ; i++) {
+
+         }
+
+         return new ArrayList<>();
+     }
+
+
 }
