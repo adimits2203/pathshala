@@ -69,16 +69,17 @@ public class SortingMain {
      * Idea is to use sorting to sort the 'points' by the distance d = x2+y2
      * */
     public static int[][] kClosest(int[][] points, int k) {
-        List<Pair<Pair<Integer, Integer>, Integer>> pairList = new ArrayList<>();
+        List<Point> pointList = new ArrayList();
         for(int i =0;i< points.length;i++){
-            int d = points[i][0]*points[i][0] + points[i][1]*points[i][1];
-            pairList.add(new Pair(new Pair(points[i][0],points[i][1]), d));
+            pointList.add(new Point(points[i][0],points[i][1]));
         }
-        Collections.sort(pairList, (o1, o2) -> {
-            if(o1.getValue() < o2.getValue()){
+        Collections.sort(pointList, (o1, o2) -> {
+            int d1 = o1.x * o1.x + o1.y * o1.y;
+            int d2 = o2.x * o2.x + o2.y * o2.y;
+            if(d1<d2){
                 return -1;
             }
-            else if(o1.getValue() > o2.getValue()){
+            else if(d1 > d2){
                 return 1;
             }
             return 0;
@@ -86,8 +87,8 @@ public class SortingMain {
         int[][] res = new int[k][2];
         int i =0;
         while (k-- > 0){
-            res[i][0] = pairList.get(i).getKey().getKey();
-            res[i][1] = pairList.get(i).getKey().getValue();
+            res[i][0] = pointList.get(i).x;
+            res[i][1] = pointList.get(i).y;
             i++;
         }
 
