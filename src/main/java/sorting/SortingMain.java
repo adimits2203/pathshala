@@ -1,6 +1,5 @@
 package sorting;
 
-import javafx.util.Pair;
 
 import java.awt.*;
 import java.util.*;

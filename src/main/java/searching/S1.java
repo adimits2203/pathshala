@@ -18,7 +18,7 @@ public class S1 {
                  ) {
                 arr1[i++] = Integer.parseInt(str);
             }
-        System.out.println(singleElement(arr1));
+        System.out.println(hIndex(arr1));
      }
 
 
@@ -831,5 +831,76 @@ public class S1 {
           return -1;
       }
 
+
+      /**
+       * h-index 2
+       *
+       * Sample Input 0
+       *
+       * 5
+       * 0 1 3 5 6
+       *
+       * Sample Output 0
+       *
+       * 3
+       *
+       * Explanation
+       *
+       * [
+       * 0
+       * ,
+       * 1
+       * ,
+       * 3
+       * ,
+       * 5
+       * ,
+       * 6
+       * ]
+       *  means the researcher has
+       * 5
+       *  papers in total and each of them had received
+       * 0
+       * ,
+       * 1
+       * ,
+       * 3
+       * ,
+       * 5
+       * ,
+       * 6
+       *  citations respectively. Since the researcher has
+       * 3
+       *  papers with at least
+       * 3
+       *  citations each and the remaining two with no more than
+       * 3
+       *  citations each, their
+       * h-index is  3
+       *
+       *
+       * */
+       private static int hIndex(int[] a){
+           int result = -1;
+           int l=0,h=a.length-1;
+           while(l<=h){
+               int m = (l+h)/2;
+               int val = a[m];
+               int countOfElementsGreaterOrEqualToVal = a.length-m;
+               if(countOfElementsGreaterOrEqualToVal < val){// move left
+                    h = m-1;
+               }
+               else if(countOfElementsGreaterOrEqualToVal >= val){// possible h index
+                    if(result==-1 || val > result){// first occurence of h index, lets move right
+                        result = val;
+                        l = m +1;
+                    }
+                    else{// we have seen a h index before
+                            return result;
+                    }
+               }
+           }
+           return result;
+       }
 
 }
