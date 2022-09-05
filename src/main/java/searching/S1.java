@@ -831,6 +831,55 @@ public class S1 {
           return -1;
       }
 
+      /**
+       * Search in 2D Matrix
+       * Integers in each row are sorted from left to right.
+       * The first integer of each row is greater than the last integer of the previous row.
+       *
+       * Sample Input 0
+       *
+       * 3 4
+       * 1  3  5  7
+       * 10 11 16 20
+       * 23 30 34 60
+       * 3
+       * 3
+       * 13
+       * 30
+       *
+       * Sample Output 0
+       *
+       * true
+       * false
+       * true
+       *
+       * Explanation
+       *
+       * 3
+       *  and
+       * 30
+       *  are present in the matrix whereas
+       * 13
+       *  is not present.
+       * */
+       private static boolean isPresentIn2DMatrix(int[][] matrix, int t){
+           boolean result = false;
+           int i=0, j = matrix.length -1;
+           while(i<=j)
+           {
+               int m = (i+j)/2;
+               if(matrix[i][j]==t){
+                   return true;
+               }
+               else if(t < matrix[i][j]){
+                   j = m -1;
+               }
+               else{
+                   i = m +1;
+               }
+           }
+           return result;
+       }
 
       /**
        * h-index 2

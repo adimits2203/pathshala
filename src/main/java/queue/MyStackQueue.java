@@ -8,9 +8,6 @@ public class MyStackQueue {
     int pushStackBottom, front;
 
 
-
-
-
     public void push(int x) {
         if(pushStack.isEmpty() && popStack.isEmpty()){
             front = x;
