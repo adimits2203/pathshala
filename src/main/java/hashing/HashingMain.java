@@ -352,19 +352,6 @@ public class HashingMain {
       * Idea is to calculate the prefix sum and chk if its divisible by k if yes increment the result counter
       *
       * */
-     public static int subarraysDivByK(int[] nums, int k) {
-         Map<Integer,Integer> map = new HashMap<>();
-         int prefixSum=0;
-         map.put(0,1);
-         for (int i:nums
-              ) {
-             prefixSum+=i;
-             map.put(prefixSum,map.getOrDefault(prefixSum,0)+1);
-         }
-         for (int i = 0; i < nums.length ; i++) {
-             if()
-         }
-     }
 
 
 
