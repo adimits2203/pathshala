@@ -1,7 +1,7 @@
 package sorting;
 
 
-import javafx.util.Pair;
+
 
 import java.awt.*;
 import java.util.*;
@@ -11,35 +11,111 @@ public class SortingMain {
 
     public static void main(String[] args) {
 
-      /*  Scanner sc = new Scanner(System.in);
-        int tcs = sc.nextInt();
-        List<Integer[]> list = new ArrayList<>();
-        while(tcs-- > 0){
-            int size = sc.nextInt();
-            Integer[] arr = new Integer[size];
-            sc.nextLine();
-            String line = sc.nextLine();
-            String[] chars = line.split(" ");
-            //System.out.println("got the line: "+line);
-            int i =0;
-            for (String ch: chars) {
-                arr[i++] = Integer.valueOf(ch);
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[] arr = new int[size];
+        sc.nextLine();
+        String line = sc.nextLine();
+        String[] lineArr = line.split(" ");
+        for (int i = 0; i < size ; i++) {
+            arr[i] = Integer.valueOf(lineArr[i]);
+        }
+
+       unstableSort(arr);
+
+    }
+
+
+    /**
+     * https://www.spoj.com/problems/ADAUSORT/
+     *
+     * sort but make sure repeated elements are always moved from their original position
+     *
+     * Example Input
+     * 4
+     * 1 2 3 4
+     * Example Output
+     * 1 2 3 4
+     * Example Input
+     * 3
+     * 3 2 1
+     * Example Output
+     * 3 2 1
+     * Example Input
+     * 6
+     * 6 6 6 6 6 6
+     * Example Output
+     * 6 5 4 3 2 1
+     * Example Input
+     * 5
+     * 5 5 2 2 3
+     * Example Output
+     * 4 3 5 2 1
+     * Example Input
+     * 6
+     * 1 2 1 2 1 2
+     * Example Output
+     * 5 3 1 6 4 2
+     * */
+    private static void unstableSort(int[] arr){
+        List<Pair> pairList = new ArrayList();
+        for (int i = 0; i < arr.length; i++) {// all elements with thier indexes are stored in the list
+            Pair pair = new Pair(arr[i],i+1);
+            pairList.add(pair);
+        }
+
+        Collections.sort(pairList, (o1, o2) -> {
+            if(o1.getKey() > o2.getKey()){
+                return 1;
             }
-            list.add(arr);
-         }
+            else if(o1.getKey()<o2.getKey()){
+                return -1;
+            }
+            else{// two elements are equal
+                if(o1.getValue() > o2.getValue()){
+                    return -1;
+                }
+                else{
+                    return 1;
+                }
+            }
+        });
 
-        for (Integer[] ip: list
-             ) {
-         freqSort(ip);
-        }*/
-
-        System.out.println(customSortString("cba","abcd"));
-
-
-
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(pairList.get(i).getValue()+" ");
+        }
 
 
     }
+
+
+    private static class Pair{
+        int key;
+        int value;
+
+        public Pair(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public int getKey() {
+            return key;
+        }
+
+        public void setKey(int key) {
+            this.key = key;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+    }
+
+
 
 
 
@@ -220,7 +296,7 @@ public class SortingMain {
               rank[order.charAt(i)-'a'] = i;
           }
 
-          List<Pair<Character, Integer>> pairList = new ArrayList<>(); // Pair of character and its rank for the given string
+          List<Pair> pairList = new ArrayList<>(); // Pair of character and its rank for the given string
 
           for (int i = 0; i < s.length(); i++) {// put the pairs of all the chars with their rank in the list
               Pair p = new Pair(s.charAt(i), rank[s.charAt(i)-'a']);
@@ -245,5 +321,9 @@ public class SortingMain {
 
           return sb.toString();
       }
+
+
+
+
 
 }
