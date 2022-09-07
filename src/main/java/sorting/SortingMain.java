@@ -3,6 +3,8 @@ package sorting;
 
 
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -21,9 +23,60 @@ public class SortingMain {
             arr[i] = Integer.valueOf(lineArr[i]);
         }
 
-       unstableSort(arr);
+        System.out.println(largestNumber(arr));
 
     }
+
+    /**
+     * https://leetcode.com/problems/largest-number/
+     *
+     * Given a list of non-negative integers nums, arrange them such that they form the largest number and return it.
+     *
+     * Since the result may be very large, so you need to return a string instead of an integer.
+     *
+     * Example 1:
+     *
+     * Input: nums = [10,2]
+     * Output: "210"
+     * Example 2:
+     *
+     * Input: nums = [3,30,34,5,9]
+     * Output: "9534330"
+     *
+     * Idea is to compare the numbers index-wise
+     * */
+     public static String largestNumber(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        for (int i:nums
+              ) {
+             list.add(i);
+         }
+         Collections.sort(list, (o1, o2) -> {
+             String s1= o1  + ""+ o2;
+             String s2 = o2  + ""+ o1;
+             Long s1Int = Long.valueOf(s1);
+             Long s2Int = Long.valueOf(s2);
+             if(s1Int > s2Int){
+                 return -1;
+             }
+             else if(s1Int < s2Int){
+                 return 1;
+             }
+             return 0;
+         });
+
+         StringBuilder sb = new StringBuilder();
+         for (int i:list
+              ) {
+             sb.append(i);
+         }
+         String r = sb.toString();
+         if(r.startsWith("0")  ){
+             int lidx = r.lastIndexOf("0");
+             return r.substring(lidx);
+         }
+         return r;
+     }
 
 
     /**
