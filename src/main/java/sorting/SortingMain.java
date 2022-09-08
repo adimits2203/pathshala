@@ -14,18 +14,84 @@ public class SortingMain {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        int[] arr = new int[size];
-        sc.nextLine();
-        String line = sc.nextLine();
-        String[] lineArr = line.split(" ");
-        for (int i = 0; i < size ; i++) {
-            arr[i] = Integer.valueOf(lineArr[i]);
+        int tcs = sc.nextInt();
+        while(tcs-- > 0){
+            int s = sc.nextInt();
+            int[] arr = new int[s];
+            sc.nextLine();
+            String l = sc.nextLine();
+            String[] lineArr = l.split(" ");
+            for (int i = 0; i < lineArr.length ; i++) {
+                arr[i] = Integer.parseInt(lineArr[i]);
+            }
+            sortByFreq(arr);
         }
 
-        System.out.println(largestNumber(arr));
-
     }
+
+    /**
+     * https://practice.geeksforgeeks.org/problems/sorting-elements-of-an-array-by-frequency/0
+     *
+     * Given an array A[] of integers, sort the array according to frequency of elements. That is elements that have higher frequency come first. If frequencies of two elements are same, then smaller number comes first.
+     *
+     * Input:
+     * The first line of input contains an integer T denoting the number of test cases. The description of T test cases follows. The first line of each test case contains a single integer N denoting the size of array. The second line contains N space-separated integers A1, A2, ..., AN denoting the elements of the array.
+     *
+     * Output:
+     * For each testcase, in a new line, print each sorted array in a seperate line. For each array its numbers should be seperated by space.
+     *
+     * Constraints:
+     * 1 ≤ T ≤ 70
+     * 1 ≤ N ≤ 130
+     * 1 ≤ Ai ≤ 60
+     *
+     * Example:
+     * Input:
+     * 2
+     * 5
+     * 5 5 4 6 4
+     * 5
+     * 9 9 9 2 5
+     *
+     * Output:
+     * 4 4 5 5 6
+     * 9 9 9 2 5
+     * */
+     public static void sortByFreq(int[] arr) {
+        Map<Integer,Integer> freqMap = new HashMap<>();
+        for (int i:arr
+              ) {
+             freqMap.put(i, freqMap.getOrDefault(i,0)+1);
+        }
+        List<Pair> pairList = new ArrayList<>();
+        for (int i:arr
+              ) {
+             Pair p = new Pair(i,freqMap.get(i));
+             pairList.add(p);
+        }
+        Collections.sort(pairList, (o1, o2) -> {
+            if(o1.getValue() > o2.getValue()){
+                return -1;
+            }
+            else if(o1.getValue() < o2.getValue()){
+                return  1;
+            }
+            else {
+                if(o1.getKey() > o2.getKey()){
+                    return 1;
+                }
+                else if(o1.getKey() < o2.getKey()){
+                    return -1;
+                }
+                return 0;
+            }
+         });
+         for (Pair p:pairList
+              ) {
+             System.out.print(p.getKey()+" ");
+         }
+
+     }
 
     /**
      * https://leetcode.com/problems/largest-number/
