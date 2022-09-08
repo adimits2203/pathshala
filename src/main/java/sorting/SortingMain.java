@@ -24,9 +24,37 @@ public class SortingMain {
             for (int i = 0; i < lineArr.length ; i++) {
                 arr[i] = Integer.parseInt(lineArr[i]);
             }
-            sortByFreq(arr);
+            int[] res = insertionSort(arr,arr.length);
+            for (int i:res
+                 ) {
+                System.out.print(i+" ");
+            }
         }
 
+    }
+
+
+    /***
+     * Insertion Sort
+     *
+     */
+     private static int[] insertionSort(int[] arr,int n){
+         for (int i = 0; i < n; i++) {
+             int j = i;
+             while(j >0){
+                 if(arr[j]<arr[j-1]){
+                     swap(arr,j,j-1);
+                 }
+                 j--;
+             }
+         }
+         return arr;
+     }
+
+    private static void swap(int[] arr, int j, int i) {
+         int t = arr[j];
+         arr[j] = arr[i];
+         arr[i] = t;
     }
 
     /**
