@@ -16,23 +16,59 @@ public class SortingMain {
         Scanner sc = new Scanner(System.in);
         int tcs = sc.nextInt();
         while(tcs-- > 0){
-            int s = sc.nextInt();
-            int[] arr = new int[s];
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int[] arr = new int[n];
             sc.nextLine();
             String l = sc.nextLine();
             String[] lineArr = l.split(" ");
             for (int i = 0; i < lineArr.length ; i++) {
                 arr[i] = Integer.parseInt(lineArr[i]);
             }
-            int[] res = insertionSort(arr,arr.length);
-            for (int i:res
-                 ) {
-                System.out.print(i+" ");
-            }
+            System.out.print(maxDiff(arr,k));
+            System.out.println();
         }
 
     }
 
+    /**
+     * https://www.codechef.com/problems/MAXDIFF
+     *
+     *
+     * */
+     private static int maxDiff(int[] arr,int k){
+         k=Math.min(k,arr.length-k);
+         Arrays.sort(arr);
+         int sk = 0;
+         for (int i = 0; i < k; i++) {
+             sk+=arr[i];
+         }
+         int sr = 0;
+         for (int i = k; i < arr.length; i++) {
+             sr+=arr[i];
+         }
+
+         return Math.abs(sr-sk);
+     }
+
+
+    /**
+     * Bubble Sort
+     * */
+     private static void bubbleSort(int[] arr,int n){
+         for (int i = 0; i < n ; i++) {
+             for (int j = i+1; j < n ; j++) {
+                 if(arr[j]<arr[i]){
+                     swap(arr,i,j);
+                 }
+             }
+         }
+
+         for (int i:arr
+              ) {
+             System.out.print(i+ " ");
+         }
+     }
 
     /***
      * Insertion Sort
