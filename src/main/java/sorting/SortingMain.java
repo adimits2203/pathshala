@@ -25,11 +25,61 @@ public class SortingMain {
             for (int i = 0; i < lineArr.length ; i++) {
                 arr[i] = Integer.parseInt(lineArr[i]);
             }
-            System.out.print(maxDiff(arr,k));
+            System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }
 
     }
+
+
+    /***
+     * Smallest SubArr
+     * return length of smalled subarray with sum >= k. Given all the elements are +ve
+     *
+     * i/p:
+     * arr: 5 1 4 3 2 9
+     * k: 10
+     *
+     * o/p:
+     * 2
+     *
+     * Idea is - since all the elements are +ve the prefix sum will be monotonous(increasing) and binary search can be applied.So, brute force will be be of N*N where as this
+     * approach will be N log N
+     */
+     private static int smallestSubArr(int[] arr,int k){
+         int res = Integer.MAX_VALUE;
+         int n = arr.length;
+         int[] ps = new int[n];
+         int psum = 0;
+         for (int i = 0; i < n; i++) {//prefix sum
+             psum+=arr[i];
+             ps[i] = psum;
+         }
+
+         for (int i = 0; i < n ; i++) {
+             int l = i, h=n-1;
+             while(l<=h){
+                 int m = (l+h)/2;
+                 int subArrSumTillM = i>0 ? ps[m] - ps[i-1] : ps[m];
+                 if(subArrSumTillM < k){
+                     l = m+1;
+                 }
+                 else{
+                     int subArrSumTillM_1 =  i>0 ? ps[m-1]-ps[i-1] :ps[m-1];
+                     if(subArrSumTillM_1 < k){
+                         res = Math.min(res,m-i+1);
+                         break;
+                     }
+                     else{
+                         h = m-1;
+                     }
+                 }
+             }
+         }
+
+         return res;
+     }
+
 
     /**
      * https://www.codechef.com/problems/MAXDIFF
