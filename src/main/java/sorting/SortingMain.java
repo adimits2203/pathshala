@@ -13,7 +13,7 @@ public class SortingMain {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+      /*  Scanner sc = new Scanner(System.in);
         int tcs = sc.nextInt();
         while(tcs-- > 0){
             int n = sc.nextInt();
@@ -27,9 +27,62 @@ public class SortingMain {
             }
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
-        }
+        }*/
+
+        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
 
     }
+
+
+    /**
+     *
+     * https://leetcode.com/problems/merge-sorted-array/
+     *
+     * Example 1:
+     *
+     * Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+     * Output: [1,2,2,3,5,6]
+     * Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+     * The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+     * Example 2:
+     *
+     * Input: nums1 = [1], m = 1, nums2 = [], n = 0
+     * Output: [1]
+     * Explanation: The arrays we are merging are [1] and [].
+     * The result of the merge is [1].
+     * Example 3:
+     *
+     * Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+     * Output: [1]
+     * Explanation: The arrays we are merging are [] and [1].
+     * The result of the merge is [1].
+     * Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+     * */
+     public static void merge(int[] nums1, int m, int[] nums2, int n) {
+            int[] res = new int[m+n];
+            int i=0,j=0,k=0;
+            for(;i<m&&j<n;){
+                if(nums1[i] < nums2[j]){
+                    res[k++] = nums1[i++];
+                }
+                else{
+                    res[k++] = nums2[j++];
+                }
+            }
+
+             for (; i < m; i++) {
+                 res[k++] = nums1[i++];
+             }
+
+             for(;j<n;j++){
+                 res[k++] = nums2[j++];
+             }
+
+         for (int p:res
+              ) {
+             System.out.print(p+" ");
+         }
+     }
 
 
     /***
