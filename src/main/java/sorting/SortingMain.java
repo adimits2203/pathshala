@@ -39,6 +39,52 @@ public class SortingMain {
     }
 
     /**
+     * https://practice.geeksforgeeks.org/problems/length-unsorted-subarray3022/1
+     *
+     * Input:
+     * N = 11
+     * Arr[] ={10,12,20,30,25,40,32,31,35,50,60}
+     * Output: 3 8
+     * Explanation: Subarray starting from index
+     * 3 and ending at index 8 is required
+     * subarray. Initial array: 10 12 20 30 25
+     * 40 32 31 35 50 60 Final array: 10 12 20
+     * 25 30 31 32 35 40 50 60
+     * (After sorting the bold part)
+     *
+     * Input:
+     * N = 9
+     * Arr[] = {0, 1, 15, 25, 6, 7, 30, 40, 50}
+     * Output: 2 5
+     * Explanation: Subarray starting from index
+     * 2 and ending at index 5 is required
+     * subarray.
+     * Initial array: 0 1 15 25 6 7 30 40 50
+     * Final array:   0 1 6 7 15 25 30 40 50
+     * (After sorting the bold part)
+     * */
+    int[] printUnsorted(int[] arr, int n) {
+        int s=0,e=0;
+        int leastElementTillThisPoint = Integer.MAX_VALUE;
+        for (int i = arr.length-1; i >=0 ; i--) {
+            leastElementTillThisPoint = Math.min(leastElementTillThisPoint,arr[i]);
+            if(leastElementTillThisPoint!=arr[i]){
+                s = i;
+            }
+        }
+
+        int maxElementTillThisPoint = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length ; i++) {
+            maxElementTillThisPoint = Math.max(maxElementTillThisPoint,arr[i]);
+            if(maxElementTillThisPoint!=arr[i]){
+                e = i;
+            }
+        }
+
+        return new int[]{s,e};
+    }
+
+    /**
      * https://leetcode.com/problems/squares-of-a-sorted-array/
      *
      * Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
