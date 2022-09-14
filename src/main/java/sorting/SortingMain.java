@@ -3,7 +3,6 @@ package sorting;
 
 
 
-import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.awt.*;
 import java.util.*;
@@ -29,10 +28,81 @@ public class SortingMain {
             System.out.println();
         }*/
 
-        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
+        int[] res = sortedSquares(new int[]{-4,-2,-1});
+
+        for (int i:res
+             ) {
+            System.out.print(i+" ");
+        }
+
 
     }
 
+    /**
+     * https://leetcode.com/problems/squares-of-a-sorted-array/
+     *
+     * Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+     *
+     *
+     *
+     * Example 1:
+     *
+     * Input: nums = [-4,-1,0,3,10]
+     * Output: [0,1,9,16,100]
+     * Explanation: After squaring, the array becomes [16,1,0,9,100].
+     * After sorting, it becomes [0,1,9,16,100].
+     * Example 2:
+     *
+     * Input: nums = [-7,-3,2,3,11]
+     * Output: [4,9,9,49,121]
+     *
+     *
+     * Idea = to get it in O(n) approach, merge process can be used
+     * square the elements
+     * have two parts(one decreasing and other increasing)
+     * merge these two to get final sorted array
+     * */
+     public static int[] sortedSquares(int[] nums) {
+         for (int i = 0; i < nums.length; i++) {// square them
+             nums[i] = nums[i]*nums[i];
+         }
+         if(nums.length==1){
+             return nums;
+         }
+         int poi=-1;
+         for (int i = 0; i < nums.length-1; i++) {// find point of inflection
+             if(nums[i+1] > nums[i]){
+                 poi = i;
+                 break;
+             }
+         }
+         int[] res = new int[nums.length];
+         if(poi!=-1){
+             int f = poi - 1, s = poi, i = 0;
+             for (; f >= 0 && s < nums.length; ) {
+                 if (nums[f] < nums[s]) {
+                     res[i++] = nums[f--];
+                 } else {
+                     res[i++] = nums[s++];
+                 }
+             }
+
+             for (; f >= 0; ) {
+                 res[i++] = nums[f--];
+             }
+
+             for (; s < nums.length; ) {
+                 res[i++] = nums[s++];
+             }
+         }
+         else{
+             for (int i = 0; i < nums.length; i++) {
+                 res[i] = nums[nums.length-1-i];
+             }
+         }
+         return res;
+
+     }
 
     /**
      *
