@@ -10,6 +10,8 @@ import java.util.List;
 
 public class SortingMain {
 
+
+
     public static void main(String[] args) {
 
       /*  Scanner sc = new Scanner(System.in);
@@ -27,15 +29,58 @@ public class SortingMain {
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }*/
+        int[] arr = new int[]{4,3,2,1};
+        mergeSort(arr,0,3);
 
-        int[] res = sortedSquares(new int[]{-4,-2,-1});
-
-        for (int i:res
+        for (int i:arr
              ) {
             System.out.print(i+" ");
         }
 
 
+    }
+
+
+    /**
+     * Merge Sort
+     * */
+    public static void merge(int arr[], int l, int m, int r)
+    {
+        int[] temp = new int[r-l+1];
+        int s1=l,e1=m,s2=m+1,e2=r,c=0;
+        for(;s1<=e1 && s2<=e2;){
+            if(arr[s1]<arr[s2]){
+                temp[c++]=arr[s1++];
+            }
+            else{
+                temp[c++]=arr[s2++];
+            }
+        }
+
+        for(;s1<=e1;){
+            temp[c++]=arr[s1++];
+        }
+
+        for(;s2<=e2;){
+            temp[c++]=arr[s2++];
+        }
+
+        for (int t:temp
+             ) {
+            System.out.print(t+" ");
+        }
+        System.out.println();
+
+    }
+    public static  void mergeSort(int arr[], int l, int r)
+    {
+        if(l==r){// break recurssion when sub arr size is one(1)
+            return;
+        }
+        int m = (l+r)/2;
+        mergeSort(arr,l,m);
+        mergeSort(arr,m+1,r);
+        merge(arr,l,m,r);
     }
 
     /**
