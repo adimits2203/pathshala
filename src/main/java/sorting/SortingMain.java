@@ -29,14 +29,12 @@ public class SortingMain {
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }*/
-        int[] arr = new int[]{4,3,2,1};
-        mergeSort(arr,0,3);
-
-        for (int i:arr
+        int[] arr = new int[]{4,3,2,1,-1};
+        mergeSort(arr,0,4);
+        for (int t:arr
              ) {
-            System.out.print(i+" ");
+            System.out.print(t+" ");
         }
-
 
     }
 
@@ -49,7 +47,7 @@ public class SortingMain {
         int[] temp = new int[r-l+1];
         int s1=l,e1=m,s2=m+1,e2=r,c=0;
         for(;s1<=e1 && s2<=e2;){
-            if(arr[s1]<arr[s2]){
+            if(arr[s1]<=arr[s2]){
                 temp[c++]=arr[s1++];
             }
             else{
@@ -64,11 +62,11 @@ public class SortingMain {
         for(;s2<=e2;){
             temp[c++]=arr[s2++];
         }
-
-        for (int t:temp
-             ) {
-            System.out.print(t+" ");
+        c=0;
+        for (int i = l; i <= r; i++,c++) {
+            arr[i] = temp[c];
         }
+
         System.out.println();
 
     }
