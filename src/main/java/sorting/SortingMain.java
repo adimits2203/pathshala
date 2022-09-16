@@ -30,13 +30,58 @@ public class SortingMain {
             System.out.println();
         }*/
         int[] arr = new int[]{4,3,2,1,-1};
-        mergeSort(arr,0,4);
+        quickSort(arr,0,4);
         for (int t:arr
              ) {
             System.out.print(t+" ");
         }
 
     }
+
+    /**
+     * Quick Sort
+     * */
+     private static void quickSort(int[] arr,int l,int r){
+         if(l==r){
+             return;
+         }
+         if(l<r){
+             int pivot = partition(arr,l,r);
+             quickSort(arr,l,pivot-1);
+             quickSort(arr,pivot+1,r);
+         }
+     }
+
+     // 4 3 5 8 9 2 1 6
+     private static int partition(int[] arr,int l,int r){
+        if(l==r) return l;
+        int[] lesserArr = new int[arr.length];
+        int[] greaterArr = new int[arr.length];
+        int lesserIndex=0,greaterIndex=0;
+        int pivot = arr[l];
+        for (int i = l+1; i <= r; i++) {
+            if(arr[i]<=pivot){
+                lesserArr[lesserIndex++]=arr[i];
+            }
+            else{
+                greaterArr[greaterIndex++]=arr[i];
+            }
+        }
+        int masterIdx = l;
+        for (int i=0;i<lesserIndex;i++ // insert lesser elements
+              ) {
+             arr[masterIdx++] = lesserArr[i];
+        }
+        int pivotIdx = masterIdx;
+        arr[masterIdx++] = pivot; // insert the pivot
+        for (int i=0;i<greaterIndex;i++
+              ) {
+             arr[masterIdx++] = greaterArr[i];
+         }
+
+         return pivotIdx;
+
+     }
 
 
     /**
@@ -146,7 +191,7 @@ public class SortingMain {
      * Output: [4,9,9,49,121]
      *
      *
-     * Idea = to get it in O(n) approach, merge process can be used
+     * Idea = to get it in O(n) approach, merge process can be usedcquik
      * square the elements
      * have two parts(one decreasing and other increasing)
      * merge these two to get final sorted array
