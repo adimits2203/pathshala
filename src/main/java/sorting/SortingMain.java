@@ -29,13 +29,46 @@ public class SortingMain {
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }*/
-        int[] arr = new int[]{4,3,2,1,-1};
-        quickSort(arr,0,4);
+        int[] arr = new int[]{0,1,0,3,12};
+        moveZeroes(arr);
         for (int t:arr
              ) {
             System.out.print(t+" ");
         }
 
+    }
+
+
+    /**
+     * https://leetcode.com/problems/move-zeroes/
+     *
+     * Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+     *
+     * Note that you must do this in-place without making a copy of the array.
+     *
+     *
+     *
+     * Example 1:
+     *
+     * Input: nums = [0,1,0,3,12]
+     * Output: [1,3,12,0,0]
+     * Example 2:
+     *
+     * Input: nums = [0]
+     * Output: [0]
+     *
+     *
+     * */
+    public static void moveZeroes(int[] nums) {
+        int countOfNonZeros = 0;
+        for (int i = 0; i < nums.length ; i++) {
+            if(nums[i] != 0){
+               if(i != countOfNonZeros){
+                   swap(nums,i,countOfNonZeros);
+               }
+               countOfNonZeros++;
+            }
+        }
     }
 
     /**
