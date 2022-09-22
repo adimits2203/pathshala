@@ -29,14 +29,71 @@ public class SortingMain {
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }*/
-        int[] arr = new int[]{12, 34, 45, 9, 8, 90, 3};
-        segregateEvenOdd(arr,arr.length);
-        for (int t:arr
-             ) {
-            System.out.print(t+" ");
-        }
+        int[] arr = new int[]{0,1,2,1,0,2};
+        sortColors(arr);
+
 
     }
+
+    /**
+     * https://leetcode.com/problems/sort-colors/
+     *
+     * Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+     *
+     * We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+     *
+     * You must solve this problem without using the library's sort function.
+     *
+     *
+     *
+     * Example 1:
+     *
+     * Input: nums = [2,0,2,1,1,0]
+     * Output: [0,0,1,1,2,2]
+     * Example 2:
+     *
+     * Input: nums = [2,0,1]
+     * Output: [0,1,2]
+     *
+     * Idea is to use count sort which uses extra space
+     * */
+    public static void sortColors(int[] nums) {
+        int max=Integer.MIN_VALUE, min= Integer.MAX_VALUE;
+        for (int i:nums
+             ) {
+            min = Math.min(min,i);
+            max = Math.max(max,i);
+        }
+        System.out.println("max =" + max + ", min= "+min);
+        int[] freqArr = new int[max-min+1];
+        for (int i = 0; i < freqArr.length; i++) {// init  freq arr
+            freqArr[i] = 0;
+        }
+
+        for (int i:nums
+             ) {// calculate freq for each element
+            freqArr[i-min]++;
+        }
+
+        for(int i=1;i<freqArr.length;i++){//calculate cumulative freq
+            freqArr[i] = freqArr[i] + freqArr[i-1];
+        }
+
+        int[] ans = new int[nums.length];
+
+        for (int i = 0; i < nums.length; i++) {
+            ans[freqArr[nums[i]-min]-1] = nums[i];
+            freqArr[nums[i]-min]--;
+        }
+
+
+        for(int i =0;i< nums.length;i++){
+            nums[i] = ans[i];
+        }
+
+
+    }
+
 
 
     /**
