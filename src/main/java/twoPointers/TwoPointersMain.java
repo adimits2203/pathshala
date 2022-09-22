@@ -6,12 +6,62 @@ public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        int[] arr = intersection(new int[]{1,2,2,1}, new int[]{2,2});
-        for (int i :arr
-             ) {
-            System.out.print(i + " ");
-        }
+        System.out.println(findPair(new int[]{90, 70, 20, 80, 50}, 5,45));
     }
+
+
+    /**
+     *
+     * https://practice.geeksforgeeks.org/problems/find-pair-given-difference1559/1#_=_
+     *
+     * Given an array Arr[] of size L and a number N, you need to write a program to find if there exists a pair of elements in the array whose difference is N.
+     *
+     * Example 1:
+     *
+     * Input:
+     * L = 6, N = 78
+     * arr[] = {5, 20, 3, 2, 5, 80}
+     * Output: 1
+     * Explanation: (2, 80) have difference of 78.
+     * Example 2:
+     *
+     * Input:
+     * L = 5, N = 45
+     * arr[] = {90, 70, 20, 80, 50}
+     * Output: -1
+     * Explanation: There is no pair with difference of 45.
+     *
+     * Idea is to sort and then do a binary search
+     * */
+    public static boolean findPair(int arr[], int size, int n)
+    {
+        Arrays.sort(arr);
+        for (int i=0;i<size;i++
+             ) {
+            if(binarySearchFound(arr,i+1,size-1,Math.abs(arr[i]+n))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean binarySearchFound(int[] arr, int s, int e,int t) {
+        int l=s,r=e;
+        while(l<=r){
+            int m = (l+r)/2;
+            if(arr[m]==t){
+                return true;
+            }
+            else if(arr[m]<t){
+                l = m+1;
+            }
+            else{
+                r = m-1;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * https://practice.geeksforgeeks.org/problems/key-pair5616/1
