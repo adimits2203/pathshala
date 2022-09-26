@@ -6,7 +6,30 @@ public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        System.out.println(findPair(new int[]{90, 70, 20, 80, 50}, 5,45));
+        System.out.println(TotalPairs(new int[]{12 ,9 ,10, 13, 1 ,8 ,11}, 7));
+    }
+
+
+    /**
+     * https://practice.geeksforgeeks.org/problems/count-distinct-pairs-with-difference-k1233/1
+     *
+     *
+     * IDea is to use map to store the elements and then search for corresponding item
+     * */
+    public static int TotalPairs(int[] nums, int k)
+    {
+        int ans =0;
+        Arrays.sort(nums);
+        for (int i=0;i< nums.length;i++
+             ) {
+            if(binarySearchFound(nums,i+1, nums.length-1,Math.abs(nums[i]+k) )){
+                System.out.println(nums[i]);
+                ans++;
+            }
+        }
+
+        return ans;
+
     }
 
 
