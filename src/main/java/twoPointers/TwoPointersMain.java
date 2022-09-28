@@ -1,14 +1,95 @@
 package twoPointers;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        System.out.println(TotalPairs(new int[]{12 ,9 ,10, 13, 1 ,8 ,11}, 7));
+        System.out.println(findUnion(new int[]{1 ,4, 18 ,19 ,19, 28 ,29 ,32 ,35 ,35, 39, 39, 44 ,49, 49, 50, 50}, new int[]{8,34},17,2));
     }
 
+
+    /**
+     * https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1#_=_
+     *
+     * Example 1:
+     *
+     * Input:
+     * n = 5, arr1[] = {1, 2, 3, 4, 5}
+     * m = 3, arr2 [] = {1, 2, 3}
+     * Output: 1 2 3 4 5
+     * Explanation: Distinct elements including
+     * both the arrays are: 1 2 3 4 5.
+     *
+     *
+     * Example 2:
+     *
+     * Input:
+     * n = 5, arr1[] = {2, 2, 3, 4, 5}
+     * m = 5, arr2[] = {1, 1, 2, 3, 4}
+     * Output: 1 2 3 4 5
+     * Explanation: Distinct elements including
+     * both the arrays are: 1 2 3 4 5.
+     *
+     * */
+     public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m)
+     {
+        ArrayList<Integer> list = new ArrayList<>();
+        int fp=0,sp=0,i=0;
+        while(sp<m && fp<n){
+            if(arr1[fp] <= arr2[sp]){
+                list.add(arr1[fp]);
+                if(arr1[fp] == arr2[sp]){
+                    sp++;
+                    while(sp<m){
+                        if(arr2[sp]==arr2[sp-1]){
+                            sp++;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+                fp++;
+                while(fp<n){
+                    if(arr1[fp]==arr1[fp-1]){
+                        fp++;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+            else if(arr1[fp] > arr2[sp]){
+                list.add(arr2[sp]);
+                sp++;
+                while(sp<m){
+                    if(arr2[sp]==arr2[sp-1]){
+                        sp++;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+         }
+         while(fp<n){
+             list.add(arr1[fp++]);
+             if(fp<n && arr1[fp]==arr1[fp-1]){
+                     fp++;
+             }
+         }
+         while(sp<m){
+             list.add(arr2[sp++]);
+             if(sp<m && arr2[sp]==arr2[sp-1]){
+                 sp++;
+             }
+         }
+
+         return list;
+     }
 
     /**
      * https://practice.geeksforgeeks.org/problems/count-distinct-pairs-with-difference-k1233/1
