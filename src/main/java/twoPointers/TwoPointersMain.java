@@ -7,14 +7,84 @@ public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        int[] res = intersection(new int[]{4,9,5}, new int[]{9,4,9,8,4});
-        for (int i:res
-             ) {
-            System.out.print(i+" ");
-        }
+        removeElement(new int[]{0,1,2,2,3,0,4,2}, 2);
+
 
     }
 
+    /**
+     * https://leetcode.com/problems/remove-element/
+     *
+     * Example 1:
+     *
+     * Input: nums = [3,2,2,3], val = 3
+     * Output: 2, nums = [2,2,_,_]
+     * Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+     * It does not matter what you leave beyond the returned k (hence they are underscores).
+     * Example 2:
+     *
+     * Input: nums = [0,1,2,2,3,0,4,2], val = 2
+     * Output: 5, nums = [0,1,4,0,3,_,_,_]
+     * Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
+     * Note that the five elements can be returned in any order.
+     * It does not matter what you leave beyond the returned k (hence they are underscores).
+     *
+     * 1. sort the arr
+     * 2. find begining of the val series
+     * 3. find the end of val series
+     * 4. move over other elements starting from begining
+     * */
+     public static int removeElement(int[] nums, int val) {
+            if(nums.length==0) return -1;
+            Arrays.sort(nums);
+            int count = 0, b=-1,e=-1;
+            int l=0,r=nums.length-1;
+            while(l<=r){// find begining index
+                int m = (l+r)/2;
+                if(nums[m]==val && (m==0 || nums[m-1]!=val)){
+                    b = m;
+                    break;
+                }
+                else if(nums[m] < val){
+                    l = m+1;
+                }
+                else{
+                    r = m-1;
+                }
+
+            }
+
+         System.out.println("begin: "+b );
+         if(b!=-1) {
+             e =b ;
+         }
+         int o = e;
+         while(o< nums.length-1){
+             if(nums[o]==nums[o+1]){
+                 e++;
+             }
+             o++;
+
+         }
+
+
+         System.out.println("end: "+e );
+         count = e-b +1;
+        int i=e+1;
+         while(i< nums.length){
+             nums[b++] = nums[i++];
+         }
+         System.out.println();
+         for (int p:nums
+              ) {
+             System.out.print(p+ " ");
+         }
+         System.out.println();
+         System.out.println(count);
+         return nums.length - count;
+
+
+     }
 
     /**
      * https://leetcode.com/problems/intersection-of-two-arrays/
