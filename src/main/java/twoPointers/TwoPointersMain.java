@@ -37,55 +37,41 @@ public class TwoPointersMain
      public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m)
      {
         ArrayList<Integer> list = new ArrayList<>();
-        int fp=0,sp=0,i=0;
+        int fp=0,sp=0,i=-1;
         while(sp<m && fp<n){
             if(arr1[fp] <= arr2[sp]){
-                list.add(arr1[fp]);
+                if(list.isEmpty() || !list.get(i).equals(arr1[fp])){
+                    list.add(arr1[fp]);
+                    i++;
+                }
                 if(arr1[fp] == arr2[sp]){
                     sp++;
-                    while(sp<m){
-                        if(arr2[sp]==arr2[sp-1]){
-                            sp++;
-                        }
-                        else{
-                            break;
-                        }
-                    }
                 }
                 fp++;
-                while(fp<n){
-                    if(arr1[fp]==arr1[fp-1]){
-                        fp++;
-                    }
-                    else{
-                        break;
-                    }
-                }
             }
             else if(arr1[fp] > arr2[sp]){
-                list.add(arr2[sp]);
-                sp++;
-                while(sp<m){
-                    if(arr2[sp]==arr2[sp-1]){
-                        sp++;
-                    }
-                    else{
-                        break;
-                    }
+                if(list.isEmpty() || !list.get(i).equals(arr2[sp])){
+                    list.add(arr2[sp]);
+                    i++;
                 }
-            }
+               sp++;
+
+                }
          }
          while(fp<n){
-             list.add(arr1[fp++]);
-             if(fp<n && arr1[fp]==arr1[fp-1]){
-                     fp++;
+             if(list.isEmpty() || !list.get(i).equals(arr1[fp])){
+                 list.add(arr1[fp]);
+                 i++;
              }
+             fp++;
+
          }
          while(sp<m){
-             list.add(arr2[sp++]);
-             if(sp<m && arr2[sp]==arr2[sp-1]){
-                 sp++;
+             if(list.isEmpty() || !list.get(i).equals(arr2[sp])){
+                 list.add(arr2[sp]);
+                 i++;
              }
+             sp++;
          }
 
          return list;
