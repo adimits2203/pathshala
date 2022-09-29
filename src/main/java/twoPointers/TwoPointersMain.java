@@ -7,7 +7,7 @@ public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        removeElement(new int[]{0,1,2,2,3,0,4,2}, 2);
+        removeElement(new int[]{1,2,3,4}, 1);
 
 
     }
@@ -35,7 +35,7 @@ public class TwoPointersMain
      * 4. move over other elements starting from begining
      * */
      public static int removeElement(int[] nums, int val) {
-            if(nums.length==0) return -1;
+            if(nums.length==0) return 0;
             Arrays.sort(nums);
             int count = 0, b=-1,e=-1;
             int l=0,r=nums.length-1;
@@ -58,29 +58,24 @@ public class TwoPointersMain
          if(b!=-1) {
              e =b ;
          }
-         int o = e;
-         while(o< nums.length-1){
-             if(nums[o]==nums[o+1]){
+         else{
+             return nums.length;
+         }
+         for (int i = e+1; i < nums.length; i++) {
+             if(nums[i]==val){
                  e++;
              }
-             o++;
-
          }
 
 
          System.out.println("end: "+e );
-         count = e-b +1;
-        int i=e+1;
-         while(i< nums.length){
-             nums[b++] = nums[i++];
+        count = e-b +1;
+         for (int i = b,j=e+1;  j < nums.length ; i++,j++) {
+             nums[i] = nums[j];
          }
+
          System.out.println();
-         for (int p:nums
-              ) {
-             System.out.print(p+ " ");
-         }
-         System.out.println();
-         System.out.println(count);
+         System.out.println(nums.length - count);
          return nums.length - count;
 
 
