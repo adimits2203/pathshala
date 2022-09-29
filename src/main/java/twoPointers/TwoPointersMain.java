@@ -7,9 +7,62 @@ public class TwoPointersMain
 {
 
     public static void main(String[] args) {
-        System.out.println(findUnion(new int[]{1 ,4, 18 ,19 ,19, 28 ,29 ,32 ,35 ,35, 39, 39, 44 ,49, 49, 50, 50}, new int[]{8,34},17,2));
+        int[] res = intersection(new int[]{4,9,5}, new int[]{9,4,9,8,4});
+        for (int i:res
+             ) {
+            System.out.print(i+" ");
+        }
+
     }
 
+
+    /**
+     * https://leetcode.com/problems/intersection-of-two-arrays/
+     *
+     * Example 1:
+     *
+     * Input: nums1 = [1,2,2,1], nums2 = [2,2]
+     * Output: [2]
+     * Example 2:
+     *
+     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+     * Output: [9,4]
+     * Explanation: [4,9] is also accepted.
+     *
+     *
+     * */
+     public static int[] intersection(int[] nums1, int[] nums2) {
+         ArrayList<Integer> list = new ArrayList<>();
+         int n = nums1.length;
+         int m = nums2.length;
+         int[] arr2 = nums2;
+         int[] arr1 = nums1;
+         Arrays.sort(arr1);
+         Arrays.sort(arr2);
+         int fp=0,sp=0,i=-1;
+         while(sp<m && fp<n){
+             if(arr1[fp] == arr2[sp]){
+                 if(list.isEmpty() || !list.get(i).equals(arr1[fp])){
+                     list.add(arr1[fp]);
+                     i++;
+                 }
+                 sp++;
+                 fp++;
+             }
+             else if(arr1[fp] < arr2[sp]){
+                fp++;
+             }
+             else{
+                 sp++;
+             }
+         }
+         int[] res = new int[list.size()];
+         for (int j = 0; j < list.size() ; j++) {
+             res[j] = list.get(j);
+         }
+
+         return res;
+     }
 
     /**
      * https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1#_=_
@@ -328,7 +381,7 @@ public class TwoPointersMain
        *
        * Idea is to
        * */
-      public static int[] intersection(int[] nums1, int[] nums2) {
+      public static int[] intersectionSet(int[] nums1, int[] nums2) {
           Set set1 = new HashSet<>();
           Set<Integer> set2 = new HashSet();
           for (int i : nums1) {
