@@ -14,6 +14,43 @@ public class HashingMain {
 
 
     /**
+     * https://practice.geeksforgeeks.org/problems/consecutive-array-elements2711/1
+     *
+     * Given an unsorted array arr[] of size N, the task is to check whether the array consists of consecutive numbers or not.
+     *
+     * Example 1:
+     *
+     * Input: N = 5, arr[] = {5, 4, 2, 1, 3}
+     * Output: Yes
+     * Explanation: All are consecutive elements,
+     * according to this order 1,2,3,4 and 5.
+     * Example 2:
+     *
+     * Input: N = 6, arr[] = {2, 1, 0, -3, -1, -2}
+     * Output: Yes
+     * */
+     boolean areConsecutives(long arr[], int N)
+     {
+        Map<Long, Long> map = new HashMap();
+        long min = Long.MAX_VALUE;
+        for (long i:arr
+              ) {
+             map.put(i,i);
+             min = Math.min(i,min);
+        }
+
+         for (int i = 0; i < N ; i++) {
+             if(map.get(min++) == null){
+                 return false;
+             }
+         }
+
+         return true;
+
+
+     }
+
+    /**
      * https://practice.geeksforgeeks.org/problems/subarray-with-0-sum-1587115621/1
      * Input:
      * 5
