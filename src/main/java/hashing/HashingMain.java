@@ -7,8 +7,56 @@ import java.util.stream.Collectors;
 public class HashingMain {
 
     public static void main(String[] args) {
-        System.out.println(findMaxLength(new int[]{0,1,1,1,1,0,0,0}));
+        System.out.println("answer: " + subarraysDivByK(new int[]{4,5,0,-2,-3,1},5));
     }
+
+
+    /**
+     * https://leetcode.com/problems/subarray-sums-divisible-by-k/
+     *
+     * Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+     *
+     * A subarray is a contiguous part of an array.
+     *
+     *
+     *
+     * Example 1:
+     *
+     * Input: nums = [4,5,0,-2,-3,1], k = 5
+     * Output: 7
+     * Explanation: There are 7 subarrays with a sum divisible by k = 5:
+     * [4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+     * Example 2:
+     *
+     * Input: nums = [5], k = 9
+     * Output: 0
+     *
+     * */
+     public static int subarraysDivByK(int[] nums, int k) {
+         int ans = 0 ;
+         Map<Integer,Integer> psumMap = new HashMap<>(); // psum Map
+         int psum = 0;
+         psumMap.put(0,1);
+         for (int a:nums
+              ) {
+             psum = (psum+a)%k;
+             if(psum<0){
+                 psum+=k;
+             }
+
+             ans+=psumMap.getOrDefault(psum,0);
+
+             psumMap.put(psum,psumMap.getOrDefault(psum,0)+1);
+             System.out.println("psum: "+psum);
+             System.out.println("psum map: "+psumMap);
+
+
+
+         }
+
+
+         return ans;
+     }
 
     /**
      * https://leetcode.com/problems/contiguous-array/
