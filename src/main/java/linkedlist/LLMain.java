@@ -9,6 +9,24 @@ public class LLMain {
     }
 
 
+    /**
+     * https://leetcode.com/problems/reverse-linked-list/
+     *
+     * Given the head of a singly linked list, reverse the list, and return the reversed list.
+     * */
+     public static ListNode reverseList(ListNode head) {
+            ListNode curr = head;
+            ListNode prev = null;
+            ListNode temp;
+            while(curr!=null){
+                temp = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = temp;
+            }
+            return  prev;
+     }
+
 
     /**
      * https://leetcode.com/problems/remove-nth-node-from-end-of-list/
