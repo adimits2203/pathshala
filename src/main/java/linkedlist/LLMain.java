@@ -1,20 +1,43 @@
 package linkedlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LLMain {
 
     public static void main(String[] args) {
-
+              // System.out.println(reverseListRecursively());
     }
 
 
     /**
-     * https://leetcode.com/problems/reverse-linked-list/
+     * Reverse a linked list recursively
      *
+     * divide the problem(linked list) into smalled part and then perform reversal
+     *
+     * 1. Delink a node
+     * 2. Call reverse on remaining lined list
+     * 3. link the node back
+     * */
+     public static ListNode reverseListRecursively(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp = head.next;
+        head.next = null;
+        ListNode res = reverseListRecursively(temp);
+        temp.next = head;
+        return res;
+
+
+     }
+
+    /**
+     * https://leetcode.com/problems/reverse-linked-list/
+     * Reverse a linked list iteratively
      * Given the head of a singly linked list, reverse the list, and return the reversed list.
      * */
-     public static ListNode reverseList(ListNode head) {
+     public static ListNode reverseListItr(ListNode head) {
             ListNode curr = head;
             ListNode prev = null;
             ListNode temp;
@@ -76,7 +99,7 @@ public class LLMain {
             return slow;
     }
 
-    class ListNode {
+    static class ListNode {
       int val;
      ListNode next;
       ListNode() {}
