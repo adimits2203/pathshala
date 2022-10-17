@@ -8,6 +8,33 @@ public class LLMain {
 
     }
 
+    /**
+     * https://leetcode.com/problems/rotate-list/
+     * 1 2 3 4 5
+     *
+     * */
+     public ListNode rotateRight(ListNode head, int k) {
+         int length = 0;
+         ListNode curr= head, lastNode=null;
+         while(curr!=null){
+             length++;
+             lastNode = curr;
+             curr = curr.next;
+         }
+
+         if(length==0) return head;
+         curr = head;
+         int numOfRotations = k%length;
+         int numOfMoves = length - numOfRotations;
+         while (numOfMoves-- > 1){
+             curr = curr.next;
+         }
+         lastNode.next = head;
+         ListNode ans = curr.next;
+         curr.next = null;
+         return ans;
+     }
+
 
     /**
      *https://leetcode.com/problems/palindrome-linked-list/
