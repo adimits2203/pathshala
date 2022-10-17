@@ -10,6 +10,37 @@ public class LLMain {
 
 
     /**
+     *https://leetcode.com/problems/palindrome-linked-list/
+     *
+     * Idea is to find the mid point(2nd in case of even length linkedlist)
+     * reverse the linked list starting from mid point till the end
+     * compare the two parts
+     *
+     *
+     * 2nd approach
+     * use stack to store the values
+     * iterate thru the linkedlist and compare
+     *
+     * */
+     public boolean isPalindrome(ListNode head) {
+            ListNode currHead = head;
+            ListNode midPointNode = middleNode(head);
+            ListNode currTail = reverseList(midPointNode);
+
+            while(currTail!=null && currHead!=null){
+                if(currHead.val!= currTail.val){
+                    return false;
+                }
+                currHead = currHead.next;
+                currTail = currTail.next;
+            }
+
+            return true;
+
+     }
+
+
+    /**
      * https://leetcode.com/problems/reverse-linked-list/
      *
      * Given the head of a singly linked list, reverse the list, and return the reversed list.
