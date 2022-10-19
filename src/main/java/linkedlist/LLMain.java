@@ -9,6 +9,68 @@ public class LLMain {
     }
 
     /**
+     * https://leetcode.com/problems/linked-list-cycle-ii/
+     *
+     * Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+     *
+     * There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.
+     *
+     * Do not modify the linked list.
+     *
+     * Idea is to loop through the cycle repeatedly till we get to a common node with head pointer moving ahead after each iteration.
+     *
+     * */
+     public ListNode detectCycle(ListNode head) {
+         ListNode slow = head;
+         ListNode fast = head,temp=null,curr=head;
+         while(fast!=null && fast.next!=null) {
+             slow = slow.next;
+             fast = fast.next.next;
+             if (slow == fast) {
+                 temp = slow;
+                 break;
+             }
+         }
+         if(temp==null) return null;
+         while(true){
+             if(temp==curr){
+                 return curr;
+             }
+             temp = temp.next;
+             if(temp==slow){
+                 curr = curr.next;
+             }
+             if(curr==null){
+                 return null;
+             }
+         }
+     }
+
+    /**
+     *https://leetcode.com/problems/linked-list-cycle/
+     *
+     * Given head, the head of a linked list, determine if the linked list has a cycle in it.
+     *
+     * There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+     *
+     * Return true if there is a cycle in the linked list. Otherwise, return false.
+     *
+     * Idea is to use slow and fast pointers. If they meet we have a cycle.
+     * */
+     public boolean hasCycle(ListNode head) {
+         ListNode slow = head;
+         ListNode fast = head;
+         while(fast!=null && fast.next!=null){
+             slow = slow.next;
+             fast = fast.next.next;
+             if(slow==fast){
+                 return true;
+             }
+         }
+         return false;
+     }
+
+    /**
      * https://leetcode.com/problems/rotate-list/
      * 1 2 3 4 5
      *
