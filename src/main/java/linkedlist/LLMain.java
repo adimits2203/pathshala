@@ -8,6 +8,70 @@ public class LLMain {
 
     }
 
+
+
+    /**
+     * https://leetcode.com/problems/merge-two-sorted-lists/
+     *
+     *
+     * You are given the heads of two sorted linked lists list1 and list2.
+     *
+     * Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+     *
+     * Return the head of the merged linked list.
+     *
+     * Input: list1 = [1,2,4], list2 = [1,3,4]
+     * Output: [1,1,2,3,4,4]
+     *
+     * */
+     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+         ListNode p1= list1, p2=list2, curr = null, head = null;
+         while((p1!=null) && (p2!=null)){
+             if(p1.val <= p2.val){
+                 if(head==null){
+                     head = p1;
+                     if(curr==null){
+                         curr = p1;
+                     }
+                 }
+                 else{
+                     curr.next = p1;
+                     curr = curr.next;
+                 }
+
+                 p1 = p1.next;
+             }
+             else{
+                 if(head==null){
+                     head = p2;
+                     if(curr==null){
+                         curr = p2;
+                     }
+                 }
+                 else{
+                     curr.next = p2;
+                     curr = curr.next;
+                 }
+
+                 p2 = p2.next;
+             }
+         }
+         while(p1!=null ){
+             if(curr==null) {return p1;}
+             else curr.next = p1;
+             p1= p1.next;
+             curr = curr.next;
+         }
+
+         while(p2!=null ){
+             if(curr==null) { return p2;}
+             else curr.next = p2;
+             p2 = p2.next;
+             curr = curr.next;
+         }
+         return head;
+     }
+
     /**
      * https://leetcode.com/problems/linked-list-cycle-ii/
      *
