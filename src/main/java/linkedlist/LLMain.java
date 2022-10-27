@@ -8,6 +8,44 @@ public class LLMain {
 
     }
 
+    /**
+     * https://leetcode.com/problems/merge-two-sorted-lists/
+     *
+     *
+     * You are given the heads of two sorted linked lists list1 and list2.
+     *
+     * Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+     *
+     * Return the head of the merged linked list.
+     *
+     * Input: list1 = [1,2,4], list2 = [1,3,4]
+     * Output: [1,1,2,3,4,4]
+     *
+     * Idea  is to do this recursively till either of the lists are empty
+     *
+     * check if either of the list is empty
+     * identify and delink smaller current head of the two
+     * recurse
+     * link back the node
+     *
+     * */
+     public ListNode mergeTwoListsRecursively(ListNode list1, ListNode list2) {
+         if(list1==null) return list2;
+         if(list2==null) return  list1;
+         ListNode head;
+         if(list1.val <= list2.val){
+             head = list1;
+             head.next = mergeTwoListsRecursively(head.next,list2);
+         }
+         else{
+             head = list2;
+             head.next = mergeTwoListsRecursively(list1, head.next);
+         }
+         return head;
+     }
+
+
+
 
 
     /**
