@@ -29,8 +29,42 @@ public class SortingMain {
             System.out.print(smallestSubArr(arr,k));
             System.out.println();
         }*/
-        int[] arr = new int[]{0,1,2,1,0,2};
-        sortColors(arr);
+
+
+        //relativeSortArray(new Integer[]{28,6,22,8,44,17},new Integer[]{22,28,8,6 });
+
+
+    }
+
+
+
+
+    public static void relativeSortArray(int[] arr1, int[] arr2) {
+      Map<Integer,Integer> map  = new HashMap();
+        for (int a:arr1
+             ) {
+            map.put(a, map.getOrDefault(a,0)+1);
+        }
+        int[]  ans = new int[arr1.length];
+        int count  = 0;
+        int i=0;
+        for (int b:arr2
+             ) {
+            for (int j = 0; j < map.get(b) ; j++) {
+                ans[i++] = b;
+            }
+            map.put(b, -1);
+        }
+
+        Iterator<Map.Entry<Integer, Integer>> entries = map.entrySet().iterator();
+        while(entries.hasNext()){
+            Map.Entry<Integer, Integer> entry = entries.next();
+            if(entry.getValue()!=-1){
+                int f = entry.getValue();
+
+            }
+
+        }
 
 
     }

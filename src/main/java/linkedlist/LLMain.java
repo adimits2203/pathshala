@@ -5,6 +5,25 @@ import java.util.List;
 public class LLMain {
 
     public static void main(String[] args) {
+        ListNode[] lists = new ListNode[4];
+
+    }
+
+    public static ListNode mergeKLists(ListNode[] lists) {
+          if (lists.length==0) return null;
+          return mergeKListsRec(lists,0, lists.length-1);
+
+
+    }
+
+    private static ListNode mergeKListsRec(ListNode[] lists, int startIndex,int endIndex){
+        if(startIndex==endIndex) return lists[startIndex];
+        int middle = (startIndex+endIndex)/2;
+        ListNode h1= mergeKListsRec(lists,startIndex,middle);
+        ListNode h2 = mergeKListsRec(lists, middle+1, endIndex);
+        return mergeTwoLists(h1,h2);
+
+
 
     }
 
@@ -29,7 +48,7 @@ public class LLMain {
      * link back the node
      *
      * */
-     public ListNode mergeTwoListsRecursively(ListNode list1, ListNode list2) {
+     public static ListNode mergeTwoListsRecursively(ListNode list1, ListNode list2) {
          if(list1==null) return list2;
          if(list2==null) return  list1;
          ListNode head;
@@ -62,7 +81,7 @@ public class LLMain {
      * Output: [1,1,2,3,4,4]
      *
      * */
-     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+     public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
          ListNode p1= list1, p2=list2, curr = null, head = null;
          while((p1!=null) && (p2!=null)){
              if(p1.val <= p2.val){
